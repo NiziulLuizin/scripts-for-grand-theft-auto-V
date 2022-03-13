@@ -1,11 +1,12 @@
 ﻿using Speedometer_for_bicycle.User_configuration.Enum;
 using Speedometer_for_bicycle.User_configuration;
+using System.Drawing;
 
 namespace Speedometer_for_bicycle.Renderings.Sprites.Informations.Image
 {
-    public static class Sprite_Speedometer
+    internal static class Sprite_Speedometer
     {
-        public static string Name
+        internal static string Name
         {
             get
             {
@@ -13,11 +14,27 @@ namespace Speedometer_for_bicycle.Renderings.Sprites.Informations.Image
             }
         }
 
-        public static string Directory
+        internal static string Directory
         {
             get
             {
                 return "Speedometer";
+            }
+        }
+
+        internal static PointF Position
+        {
+            get
+            {
+                return new PointF(720f, 640f);
+            }
+        }
+
+        internal static SizeF Size
+        {
+            get
+            {
+                return new SizeF(251f, 63f);
             }
         }
     }
