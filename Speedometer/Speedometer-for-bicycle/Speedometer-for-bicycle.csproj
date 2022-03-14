@@ -51,10 +51,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderings\Sprites\Informations\Image\Sprite-speedometer.cs" />
     <Compile Include="Renderings\Sprites\Current-Unit-of-Measure\Sprite-Manager.cs" />
-    <Compile Include="User-configuration\Enum\Measurement.cs" />
-    <Compile Include="User-configuration\Current.cs" />
+    <Compile Include="Renderings\Text-Element\Speed\Speed.cs" />
+    <Compile Include="Renderings\Text-Element\Speed\In\Speed-In.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Renderings\Text-Element\Distance-Covered\" />
+    <Folder Include="Renderings\Text-Element\Time\" />
+    <Folder Include="Text-Manager\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(ProjectDir)\bin\Debug\Speedometer-for-bicycle.dll" /y "C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\scripts"</PostBuildEvent>

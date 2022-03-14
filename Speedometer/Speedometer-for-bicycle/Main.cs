@@ -1,9 +1,10 @@
 ﻿using Speedometer_for_bicycle.Renderings.Sprites.Current_Unit_of_Measure;
-using GTA;
-using GTA.UI;
+using Speedometer_for_bicycle.Text_Element.Speed;
 using System.Windows.Forms;
-using System;
 using System.IO;
+using GTA.UI;
+using System;
+using GTA;
 
 namespace Speedometer_for_bicycle
 {
@@ -16,8 +17,6 @@ namespace Speedometer_for_bicycle
         float SzY = 0f;
 
         float Velocity;
-
-        string ContentOfThePositionFile;
         public Main()
         {
             NotifyWhenTheScriptHasBeenLoaded();         
@@ -26,7 +25,19 @@ namespace Speedometer_for_bicycle
             {
                 drawInfos();
 
-                Sprite_Manager.ReturnTheCurrentSpeedometer.ScaledDraw();
+                if (Game.Player.Character.IsSittingInVehicle())
+                {
+                    if(Game.Player.Character.CurrentVehicle.Type == VehicleType.Bicycle)
+                    {
+                        Sprite_Manager.ReturnTheCurrentSpeedometer.ScaledDraw();
+                        Speed.Show().Draw();
+                    }
+                    else if (Game.Player.Character.CurrentVehicle.Type == VehicleType.Helicopter)
+                    {
+                        var Speed = new TextElement((Game.Player.Character.CurrentVehicle.Speed * 1.94384f).ToString("0"), new System.Drawing.PointF(644f, 662f), 0.50f, System.Drawing.Color.White, Font.Monospace, Alignment.Center);
+                        Speed.Draw();
+                    }
+                }     
             };
 
             KeyDown += (o, e) =>
@@ -50,6 +61,7 @@ namespace Speedometer_for_bicycle
                 if (e.KeyCode == Keys.D7)
                 {
                     var Input = Game.GetUserInput();
+
                     if (Input == "SavePosition")
                         SaveConfigOfPosition();
                     else if (Input == "SaveSize")
@@ -71,13 +83,13 @@ namespace Speedometer_for_bicycle
         void SaveConfigOfPosition()
         {
             using (var ConfigPosition = new StreamWriter(GetRelativeFilePath("Image\\ConfigPosition.txt")))
-                ConfigPosition.WriteLine($"Position X: {PtfX.ToString()} Position Y: {PtfY.ToString()}"); ContentOfThePositionFile += ReturnWhatYouReadInTheLegacy(GetRelativeFilePath("Image\\ConfigPosition.txt"));
+                ConfigPosition.WriteLine($"Position X: {PtfX} Position Y: {PtfY}");
         }
 
         void SaveConfigOfSize()
         {
             using (var ConfigPosition = new StreamWriter(GetRelativeFilePath("Image\\ConfigSize.txt")))
-                ConfigPosition.WriteLine($"Size X: {SzX.ToString()} Size Y: {SzY.ToString()}"); ContentOfThePositionFile += ReturnWhatYouReadInTheLegacy(GetRelativeFilePath("Image\\ConfigSize.txt"));
+                ConfigPosition.WriteLine($"Size X: {SzX} Size Y: {SzY}"); 
         }
 
         static string ReturnWhatYouReadInTheLegacy(string path)
@@ -89,7 +101,7 @@ namespace Speedometer_for_bicycle
 
         void drawInfos()
         {
-            var InformationGroup = new TextElement($"Position X: ~r~{PtfX}~w~ Position Y: ~r~{PtfY}~w~", new System.Drawing.PointF(100f, 200f), 0.40f);
+            var InformationGroup = new TextElement($"Position X: ~r~{PtfX}~w~ Position Y: ~r~{PtfY}~w~ Velocity: ~r~{Velocity}~w~", new System.Drawing.PointF(200f, 200f), 0.40f);
                 InformationGroup.Draw();
         }
     }

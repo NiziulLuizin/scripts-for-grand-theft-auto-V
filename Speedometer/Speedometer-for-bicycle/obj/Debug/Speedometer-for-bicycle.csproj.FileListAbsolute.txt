@@ -7,11 +7,3 @@ C:\Users\Niziu\Documents\Scripts-GtaV\Speedometer\Speedometer-for-bicycle\obj\De
 C:\Users\Niziu\Documents\Scripts-GtaV\Speedometer\Speedometer-for-bicycle\bin\Debug\ScriptHookVDotNet3.dll
 C:\Users\Niziu\Documents\Scripts-GtaV\Speedometer\Speedometer-for-bicycle\bin\Debug\ScriptHookVDotNet3.xml
 C:\Users\Niziu\Documents\Scripts-GtaV\Speedometer\Speedometer-for-bicycle\obj\Debug\Speedometer-for-bicycle.csproj.CopyComplete
-C:\Users\Niziu\Documents\GitHub\Scripts-for-GTAV\Speedometer\Speedometer-for-bicycle\bin\Debug\Speedometer-for-bicycle.dll
-C:\Users\Niziu\Documents\GitHub\Scripts-for-GTAV\Speedometer\Speedometer-for-bicycle\bin\Debug\Speedometer-for-bicycle.pdb
-C:\Users\Niziu\Documents\GitHub\Scripts-for-GTAV\Speedometer\Speedometer-for-bicycle\bin\Debug\ScriptHookVDotNet3.xml
-C:\Users\Niziu\Documents\GitHub\Scripts-for-GTAV\Speedometer\Speedometer-for-bicycle\obj\Debug\Speedometer-for-bicycle.csproj.AssemblyReference.cache
-C:\Users\Niziu\Documents\GitHub\Scripts-for-GTAV\Speedometer\Speedometer-for-bicycle\obj\Debug\Speedometer-for-bicycle.csproj.CoreCompileInputs.cache
-C:\Users\Niziu\Documents\GitHub\Scripts-for-GTAV\Speedometer\Speedometer-for-bicycle\obj\Debug\Speedometer-for-bicycle.csproj.CopyComplete
-C:\Users\Niziu\Documents\GitHub\Scripts-for-GTAV\Speedometer\Speedometer-for-bicycle\obj\Debug\Speedometer-for-bicycle.dll
-C:\Users\Niziu\Documents\GitHub\Scripts-for-GTAV\Speedometer\Speedometer-for-bicycle\obj\Debug\Speedometer-for-bicycle.pdb
