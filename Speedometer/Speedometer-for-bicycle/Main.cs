@@ -1,10 +1,12 @@
-﻿using Speedometer_for_bicycle.Renderings.Sprites.Current_Unit_of_Measure;
-using Speedometer_for_bicycle.Text_Element.Speed;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System.IO;
 using GTA.UI;
 using System;
 using GTA;
+using Speedometer_for_bicycle.Draw.Sprites;
+using Speedometer_for_bicycle.Draw.Text_Element.Speed;
+using Speedometer_for_bicycle.Draw.Text_Element.Time;
+using Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements;
 
 namespace Speedometer_for_bicycle
 {
@@ -31,6 +33,7 @@ namespace Speedometer_for_bicycle
                     {
                         Sprite_Manager.ReturnTheCurrentSpeedometer.ScaledDraw();
                         Speed.Show().Draw();
+                        FullTime.Show().Draw();
                     }
                     else if (Game.Player.Character.CurrentVehicle.Type == VehicleType.Helicopter)
                     {

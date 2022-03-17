@@ -1,9 +1,9 @@
 ﻿using GTA;
 using System.Drawing;
 
-namespace Speedometer_for_bicycle.Renderings.Sprites.Informations.Image
+namespace Speedometer_for_bicycle.Draw.Settings.For_The_Sprites
 {
-    internal static class Sprite_Speedometer
+    internal static class Speedometer
     {
         internal static string Name
         {
@@ -15,26 +15,20 @@ namespace Speedometer_for_bicycle.Renderings.Sprites.Informations.Image
 
         internal static string Directory
         {
-            get
-            {
-                return "Speedometer";
+            get 
+            { 
+                return "Speedometer"; 
             }
         }
 
         internal static PointF Position
         {
-            get
-            {
-                return new PointF(720f, 640f);
-            }
+            get { return new PointF(685f, 640f); }
         }
 
         internal static SizeF Size
         {
-            get
-            {
-                return new SizeF(251f, 63f);
-            }
+            get { return new SizeF(320f, 65f); }
         }
     }
 }
