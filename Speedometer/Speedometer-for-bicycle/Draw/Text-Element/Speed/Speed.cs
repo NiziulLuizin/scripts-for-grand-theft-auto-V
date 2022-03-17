@@ -13,7 +13,6 @@ namespace Speedometer_for_bicycle.Draw.Text_Element.Speed
                             Speed_Text_Element.Color,
                             Speed_Text_Element.Font,
                             Speed_Text_Element.Alignment).Draw();
-            
         }        
     }
 }
