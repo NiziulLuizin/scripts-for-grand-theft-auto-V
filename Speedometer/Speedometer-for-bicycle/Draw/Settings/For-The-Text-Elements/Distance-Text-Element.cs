@@ -3,8 +3,8 @@ using GTA;
 
 namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
 {
-    internal class Time_Text_Element
-    {      
+    internal class Distance_Text_Element 
+    {
         internal static float Scale
         {
             get { return 0.50f; }
@@ -15,7 +15,7 @@ namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
         }
         internal static PointF Position
         {
-            get { return new PointF(724f, 676f); }
+            get { return new PointF(563f, 676f); }
         }
         internal static GTA.UI.Alignment Alignment
         {
@@ -26,12 +26,17 @@ namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
             get { return GTA.UI.Font.ChaletComprimeCologne; }
         }
 
-        internal static string Time
+        internal static string Distance
         {
             get
             {
-                return World.CurrentTimeOfDay.ToString();
+                return (WaypointExist() ? !World.WaypointBlip.IsOnMinimap ? 0 : World.GetDistance(Game.Player.Character.Position, World.WaypointPosition) : 0).ToString("N2") + "m";
             }
+        }
+
+        static bool WaypointExist()
+        {
+            return World.WaypointBlip != null ? true : false;
         }
     }
 }

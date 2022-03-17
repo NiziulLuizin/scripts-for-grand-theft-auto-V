@@ -1,19 +1,18 @@
-﻿using GTA;
+﻿using Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements;
 using GTA.UI;
-using Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements;
-using System;
 
 namespace Speedometer_for_bicycle.Draw.Text_Element.Time
 {
-    internal static class FullTime
+    internal static class Time
     {
-        internal static TextElement Show()
+        internal static void Draw()
         {
-            return new TextElement(Convert.ToString(Time()), Time_Text_Element.Position, 0.50f, System.Drawing.Color.White, Font.ChaletComprimeCologne, Alignment.Center);
-        }
-        private static TimeSpan Time()
-        {
-            return World.CurrentTimeOfDay;
-        }
+            new TextElement(Time_Text_Element.Time, 
+                            Time_Text_Element.Position, 
+                            Time_Text_Element.Scale, 
+                            Time_Text_Element.Color, 
+                            Time_Text_Element.Font, 
+                            Time_Text_Element.Alignment).Draw();
+        }      
     }
 }

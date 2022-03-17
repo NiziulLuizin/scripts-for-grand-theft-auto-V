@@ -1,11 +1,9 @@
-﻿using System.Windows.Forms;
+﻿using Speedometer_for_bicycle.Draw.Sprites;
+using System.Windows.Forms;
 using System.IO;
 using GTA.UI;
 using System;
 using GTA;
-using Speedometer_for_bicycle.Draw.Sprites;
-using Speedometer_for_bicycle.Draw.Text_Element.Speed;
-using Speedometer_for_bicycle.Draw.Text_Element.Time;
 using Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements;
 
 namespace Speedometer_for_bicycle
@@ -25,15 +23,14 @@ namespace Speedometer_for_bicycle
 
             Tick += (o, e) =>
             {
-                drawInfos();
+                //drawInfos();
 
                 if (Game.Player.Character.IsSittingInVehicle())
                 {
                     if(Game.Player.Character.CurrentVehicle.Type == VehicleType.Bicycle)
                     {
-                        Sprite_Manager.ReturnTheCurrentSpeedometer.ScaledDraw();
-                        Speed.Show().Draw();
-                        FullTime.Show().Draw();
+                        Sprite_Manager.ReturnTheCurrentSpeedometer();
+                        //Distance_Traveled_Text_Element.Position = new System.Drawing.PointF(PtfX, PtfY);
                     }
                     else if (Game.Player.Character.CurrentVehicle.Type == VehicleType.Helicopter)
                     {

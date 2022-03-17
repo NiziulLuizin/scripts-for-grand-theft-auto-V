@@ -47,19 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Draw\Settings\For-The-Sprites\Speedometer.cs" />
+    <Compile Include="Draw\Settings\For-The-Text-Elements\Distance-Text-Element.cs" />
     <Compile Include="Draw\Settings\For-The-Text-Elements\Speed-Text-Element.cs" />
-    <Compile Include="Draw\Settings\For-The-Text-Elements\Distance-Traveled-Text-Element.cs" />
     <Compile Include="Draw\Settings\For-The-Text-Elements\Time-Text-Element.cs" />
-    <Compile Include="Draw\Text-Element\Time\Time.cs" />
-    <Compile Include="Main.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Draw\Sprites\Sprite-Manager.cs" />
-    <Compile Include="Draw\Text-Element\Speed\Speed.cs" />
+    <Compile Include="Draw\Settings\For-The-Sprites\Speedometer.cs" />
+    <Compile Include="Draw\Text-Element\Distance\Distance.cs" />
     <Compile Include="Draw\Text-Element\Speed\In\SpeedIn.cs" />
+    <Compile Include="Draw\Text-Element\Speed\Speed.cs" />
+    <Compile Include="Draw\Sprites\Sprite-Manager.cs" />
+    <Compile Include="Draw\Text-Element\Time\Time.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Main.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Draw\Text-Element\Distance-Traveled\" />
     <Folder Include="Text-Manager\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
