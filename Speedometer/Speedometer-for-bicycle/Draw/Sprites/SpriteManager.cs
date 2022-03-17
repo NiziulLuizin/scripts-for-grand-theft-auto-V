@@ -6,7 +6,7 @@ using GTA.UI;
 
 namespace Speedometer_for_bicycle.Draw.Sprites
 {
-    internal static class Sprite_Manager
+    internal static class SpriteManager
     {
         internal static void ReturnTheCurrentSpeedometer()
         {
