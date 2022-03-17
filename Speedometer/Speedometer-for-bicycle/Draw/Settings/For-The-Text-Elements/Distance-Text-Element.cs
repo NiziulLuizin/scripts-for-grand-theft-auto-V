@@ -15,7 +15,7 @@ namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
         }
         internal static PointF Position
         {
-            get { return new PointF(563f, 676f); }
+            get { return new PointF(565f, 675f); }
         }
         internal static GTA.UI.Alignment Alignment
         {
@@ -30,13 +30,27 @@ namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
         {
             get
             {
-                return (WaypointExist() ? !World.WaypointBlip.IsOnMinimap ? 0 : World.GetDistance(Game.Player.Character.Position, World.WaypointPosition) : 0).ToString("N2") + "m";
+                return $"{(WaypointExist() ? World.WaypointBlip.IsOnMinimap ? CurrentDistance() : 0 : 0):N1}m";
             }
         }
 
+        private static float CurrentDistance()
+        {
+            return Game.MeasurementSystem == MeasurementSystem.Metric ? DistanceInMiles() : DistanceInMeters();
+        }
+
+        private static float DistanceInMiles()
+        {
+            return World.GetDistance(Game.Player.Character.Position, World.WaypointPosition) / 1609f;
+        }
+
+        private static float DistanceInMeters()
+        {
+            return World.GetDistance(Game.Player.Character.Position, World.WaypointPosition);
+        }
         static bool WaypointExist()
         {
-            return World.WaypointBlip != null ? true : false;
+            return World.WaypointBlip != null;
         }
     }
 }
