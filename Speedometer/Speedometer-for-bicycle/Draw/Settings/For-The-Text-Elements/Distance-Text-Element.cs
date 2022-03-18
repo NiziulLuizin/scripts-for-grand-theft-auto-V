@@ -30,27 +30,37 @@ namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
         {
             get
             {
-                return $"{(WaypointExist() ? World.WaypointBlip.IsOnMinimap ? CurrentDistance() : 0 : 0):N1}m";
+                return IsTheWaypointBeingUsed() ? CurrentDistance() : DistanceBase();
             }
         }
 
-        private static float CurrentDistance()
-        {
-            return Game.MeasurementSystem == MeasurementSystem.Metric ? DistanceInMiles() : DistanceInMeters();
-        }
 
-        private static float DistanceInMiles()
+        private static bool IsTheWaypointBeingUsed()
         {
-            return World.GetDistance(Game.Player.Character.Position, World.WaypointPosition) / 1609f;
+            return WaypointExist();
         }
-
-        private static float DistanceInMeters()
+        private static string DistanceBase()
         {
-            return World.GetDistance(Game.Player.Character.Position, World.WaypointPosition);
+            var metersBase = $"{0:N2}m";
+            var milesBase = $"{0:N3}mi";
+            return Game.MeasurementSystem
+                == MeasurementSystem.Metric ? metersBase : milesBase;
         }
-        static bool WaypointExist()
+        private static bool WaypointExist()
         {
-            return World.WaypointBlip != null;
+            return World.WaypointBlip != null && World.WaypointBlip.IsOnMinimap;
+        }
+        private static string CurrentDistance()
+        {
+            return Game.MeasurementSystem == MeasurementSystem.Metric ? DistanceInMeters() : DistanceInMiles();
+        }
+        private static string DistanceInMeters()
+        {
+            return $"{World.GetDistance(origin: Game.Player.Character.Position, destination: World.WaypointPosition):N2}m";
+        }
+        private static string DistanceInMiles()
+        {
+            return $"{World.GetDistance(origin: Game.Player.Character.Position, destination: World.WaypointPosition) / 1609f:N3}mi";
         }
     }
 }
