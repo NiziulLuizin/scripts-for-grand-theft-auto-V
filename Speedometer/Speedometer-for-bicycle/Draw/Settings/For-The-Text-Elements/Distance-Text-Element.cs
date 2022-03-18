@@ -37,7 +37,7 @@ namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
 
         private static bool IsTheWaypointBeingUsed()
         {
-            return WaypointExist();
+            return World.WaypointBlip != null && World.WaypointBlip.IsOnMinimap;
         }
         private static string DistanceBase()
         {
@@ -45,10 +45,6 @@ namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
             var milesBase = $"{0:N3}mi";
             return Game.MeasurementSystem
                 == MeasurementSystem.Metric ? metersBase : milesBase;
-        }
-        private static bool WaypointExist()
-        {
-            return World.WaypointBlip != null && World.WaypointBlip.IsOnMinimap;
         }
         private static string CurrentDistance()
         {
