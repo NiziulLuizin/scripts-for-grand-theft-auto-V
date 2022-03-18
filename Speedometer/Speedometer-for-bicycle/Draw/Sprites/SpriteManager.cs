@@ -8,7 +8,7 @@ namespace Speedometer_for_bicycle.Draw.Sprites
 {
     internal static class SpriteManager
     {
-        internal static void ReturnTheCurrentSpeedometer()
+        internal static void DisplayTheCurrentSpeedometer()
         {
             new Sprite(Speedometer.Directory,
                        Speedometer.Name,
