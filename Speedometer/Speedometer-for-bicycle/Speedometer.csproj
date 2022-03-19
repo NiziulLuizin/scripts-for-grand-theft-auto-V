@@ -7,8 +7,8 @@
     <ProjectGuid>{B6615EAC-ECD5-4A95-A134-354DD9DE94A8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Speedometer_for_bicycle</RootNamespace>
-    <AssemblyName>Speedometer-for-bicycle</AssemblyName>
+    <RootNamespace>Speedometer</RootNamespace>
+    <AssemblyName>Speedometer</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -47,14 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Draw\Settings\For-The-Text-Elements\Distance-Text-Element.cs" />
-    <Compile Include="Draw\Settings\For-The-Text-Elements\Speed-Text-Element.cs" />
-    <Compile Include="Draw\Settings\For-The-Text-Elements\Time-Text-Element.cs" />
-    <Compile Include="Draw\Settings\For-The-Sprites\Speedometer.cs" />
+    <Compile Include="Draw\Settings\For-The-Text-Elements\DistanceTextElementSettings.cs" />
+    <Compile Include="Draw\Settings\For-The-Text-Elements\SpeedTextElementSettings.cs" />
+    <Compile Include="Draw\Settings\For-The-Text-Elements\TimeTextElementSettings.cs" />
+    <Compile Include="Draw\Settings\For-The-Sprites\SpeedometerSettings.cs" />
+    <Compile Include="Draw\Sprites\Speedometer\Speedometer.cs" />
     <Compile Include="Draw\Text-Element\Distance\Distance.cs" />
+    <Compile Include="Draw\Text-Element\Editor-Mode\Informations\Sprites\SpeedometerAttributes.cs" />
+    <Compile Include="Draw\Text-Element\Editor-Mode\Informations\Text-Elements\DistanceAttributes.cs" />
+    <Compile Include="Draw\Text-Element\Editor-Mode\Informations\Text-Elements\SpeedAttributes.cs" />
+    <Compile Include="Draw\Text-Element\Editor-Mode\Informations\Text-Elements\TimeAttributes.cs" />
     <Compile Include="Draw\Text-Element\Speed\In\SpeedIn.cs" />
     <Compile Include="Draw\Text-Element\Speed\Speed.cs" />
-    <Compile Include="Draw\Sprites\SpriteManager.cs" />
+    <Compile Include="Sprite-Manager\SpriteManager.cs" />
     <Compile Include="Draw\Text-Element\Time\Time.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
@@ -63,6 +68,6 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)\bin\Debug\Speedometer-for-bicycle.dll" /y "C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\scripts"</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)\bin\Debug\Speedometer.dll" /y "C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\scripts"</PostBuildEvent>
   </PropertyGroup>
 </Project>

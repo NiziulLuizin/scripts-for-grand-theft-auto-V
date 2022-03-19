@@ -1,14 +1,15 @@
-﻿using Speedometer_for_bicycle.Draw.Text_Element.Speed.In;
+﻿using GTA;
 using System.Drawing;
-using GTA;
+using Speedometer.Text_Manager;
+using Speedometer.Draw.Text_Element.Speed.In;
 
-namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
+namespace Speedometer.Draw.Settings.For_The_Text_Elements
 {
-    internal class Speed_Text_Element
+    internal class SpeedTextElementSettings
     {
         internal static float Scale
         {
-            get { return 0.50f; }
+            get { return 0.50f + TextManager.szY; }
         }
         internal static Color Color
         {
@@ -20,7 +21,7 @@ namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
         }
         internal static PointF Position
         {
-            get { return new PointF(644f, 662f); }
+            get { return new PointF(644f + TextManager.ptfX, 662f + TextManager.ptfY); }
         }
         internal static GTA.UI.Alignment Alignment
         {

@@ -1,13 +1,14 @@
-﻿using System.Drawing;
-using GTA;
+﻿using GTA;
+using System.Drawing;
+using Speedometer.Text_Manager;
 
-namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
+namespace Speedometer.Draw.Settings.For_The_Text_Elements
 {
-    internal class Distance_Text_Element 
+    internal class DistanceTextElementSettings 
     {
         internal static float Scale
         {
-            get { return 0.50f; }
+            get { return 0.50f + TextManager.szY; }
         }
         internal static Color Color
         {
@@ -15,7 +16,7 @@ namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
         }
         internal static PointF Position
         {
-            get { return new PointF(565f, 675f); }
+            get { return new PointF(565f + TextManager.ptfX, 675f + TextManager.ptfY); }
         }
         internal static GTA.UI.Alignment Alignment
         {
@@ -43,12 +44,13 @@ namespace Speedometer_for_bicycle.Draw.Settings.For_The_Text_Elements
         {
             var metersBase = $"{0:N2}m";
             var milesBase = $"{0:N3}mi";
-            return Game.MeasurementSystem
-                == MeasurementSystem.Metric ? metersBase : milesBase;
+            return Game.MeasurementSystem 
+                is MeasurementSystem.Metric ? metersBase : milesBase;
         }
         private static string CurrentDistance()
         {
-            return Game.MeasurementSystem == MeasurementSystem.Metric ? DistanceInMeters() : DistanceInMiles();
+            return Game.MeasurementSystem
+                is MeasurementSystem.Metric ? DistanceInMeters() : DistanceInMiles();
         }
         private static string DistanceInMeters()
         {
