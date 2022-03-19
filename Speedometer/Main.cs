@@ -1,7 +1,6 @@
 ﻿using GTA;
 using GTA.UI;
 using Speedometer.Editor_Mode;
-using Speedometer.Text_Manager;
 
 namespace Speedometer
 {
