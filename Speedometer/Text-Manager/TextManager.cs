@@ -20,7 +20,7 @@ namespace Speedometer.Text_Manager
 
         void SaveConfigOfPosition()
         {
-            //using (var Position = new SktreamWriter()
+            //using (var Position = new StreamWriter()
                 //Position.WriteLine();
         }
 
