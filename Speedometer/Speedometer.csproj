@@ -51,7 +51,7 @@
     <Compile Include="Draw\Settings\For-The-Text-Elements\SpeedTextElementSettings.cs" />
     <Compile Include="Draw\Settings\For-The-Text-Elements\TimeTextElementSettings.cs" />
     <Compile Include="Draw\Settings\For-The-Sprites\SpeedometerSettings.cs" />
-    <Compile Include="Draw\Sprites\Speedometer\Speedometer.cs" />
+    <Compile Include="Draw\Sprites\CurrentSpeedometer\CurrentSpeedometer.cs" />
     <Compile Include="Draw\Text-Element\Distance\Distance.cs" />
     <Compile Include="Draw\Text-Element\Editor-Mode\Informations\Sprites\SpeedometerAttributes.cs" />
     <Compile Include="Draw\Text-Element\Editor-Mode\Informations\Text-Elements\DistanceAttributes.cs" />
@@ -59,6 +59,7 @@
     <Compile Include="Draw\Text-Element\Editor-Mode\Informations\Text-Elements\TimeAttributes.cs" />
     <Compile Include="Draw\Text-Element\Speed\In\SpeedIn.cs" />
     <Compile Include="Draw\Text-Element\Speed\Speed.cs" />
+    <Compile Include="Editor-Mode\EditorMode.cs" />
     <Compile Include="Sprite-Manager\SpriteManager.cs" />
     <Compile Include="Draw\Text-Element\Time\Time.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
