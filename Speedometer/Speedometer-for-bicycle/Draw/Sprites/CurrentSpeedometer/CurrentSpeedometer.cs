@@ -1,9 +1,9 @@
 ﻿using GTA.UI;
 using Speedometer.Draw.Settings.For_The_Sprites;
 
-namespace Speedometer.Draw.Sprites.Speedometer
+namespace Speedometer.Draw.Sprites.CurrentSpeedometer
 {
-    internal class Speedometer
+    internal class CurrentSpeedometer
     {
         internal static void Draw()
         {

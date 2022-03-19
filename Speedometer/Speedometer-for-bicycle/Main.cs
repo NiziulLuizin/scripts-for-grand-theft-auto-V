@@ -1,5 +1,6 @@
 ﻿using GTA;
 using GTA.UI;
+using Speedometer.Editor_Mode;
 using Speedometer.Text_Manager;
 
 namespace Speedometer
@@ -12,10 +13,9 @@ namespace Speedometer
 
             Tick += (o, e) =>
             {
-                if (Game.Player.Character.IsSittingInVehicle() && !TextManager.IsEditorModeEnabled)
+                if (Game.Player.Character.IsSittingInVehicle() && !EditorMode.IsEditorModeEnabled)
                 {
                     SpriteManager.DisplayTheCurrentSpeedometer();
-                    //Distance_Traveled_Text_Element.Position = new System.Drawing.PointF(TextManager.ptfX, TextManager.ptfY);
                 }
             }; 
         }
