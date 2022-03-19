@@ -1,4 +1,4 @@
-﻿namespace Speedometer_for_bicycle.Draw.Text_Element.Speed.In
+﻿namespace Speedometer.Draw.Text_Element.Speed.In
 {
     internal static class SpeedIn
     {

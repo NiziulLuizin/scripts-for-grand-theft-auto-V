@@ -1,8 +1,8 @@
-﻿using Speedometer_for_bicycle.Draw.Sprites;
+﻿using GTA;
 using GTA.UI;
-using GTA;
+using Speedometer.Text_Manager;
 
-namespace Speedometer_for_bicycle
+namespace Speedometer
 {
     public class Main : Script
     {
@@ -12,14 +12,11 @@ namespace Speedometer_for_bicycle
 
             Tick += (o, e) =>
             {
-                if (Game.Player.Character.IsSittingInVehicle())
+                if (Game.Player.Character.IsSittingInVehicle() && !TextManager.IsEditorModeEnabled)
                 {
-                    if(Game.Player.Character.CurrentVehicle.Type == VehicleType.Bicycle)
-                    {
-                        SpriteManager.ReturnTheCurrentSpeedometer();
-                        //Distance_Traveled_Text_Element.Position = new System.Drawing.PointF(TextManager.ptfX, TextManager.ptfY);
-                    }
-                }     
+                    SpriteManager.DisplayTheCurrentSpeedometer();
+                    //Distance_Traveled_Text_Element.Position = new System.Drawing.PointF(TextManager.ptfX, TextManager.ptfY);
+                }
             }; 
         }
 
