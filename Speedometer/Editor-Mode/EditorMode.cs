@@ -8,39 +8,26 @@ namespace Speedometer.Editor_Mode
 {
     internal class EditorMode : Script
     {
-        private static bool _isEditorModeEnabled = false;
-        private static bool _isToEditThePosition = false;
-        private static bool _isToEditTheSize = false;
-
-        private static string _element;
-        private static float _velocity;
-
-        private static float _ptfX = 0f;
-        private static float _ptfY = 0f;
-        private static float _szX = 0f;
-        private static float _szY = 0f;
-
-
         internal static bool IsEditorModeEnabled 
-        { get { return _isEditorModeEnabled; } }
+        { get; private set; }
         internal static bool IsToEditThePosition 
-        { get { return _isToEditThePosition; } }
+        { get; private set; }
         internal static bool IsToEditTheSize 
-        { get { return _isToEditTheSize; } }
+        { get; private set; }
 
+        internal static string Element 
+        { get; private set; }
         internal static float Velocity
-        { get { return _velocity;  } }
-        internal static string Element
-        { get { return _element; } }
+        { get; private set; }
 
         internal static float PtfX 
-        { get { return _ptfX; } }
+        { get; private set; }
         internal static float PtfY 
-        { get { return _ptfY; } }
+        { get; private set; }
         internal static float SzX 
-        { get { return _szX; } }
+        { get; private set; }
         internal static float SzY 
-        { get { return _szY; } }
+        { get; private set; }
 
 
 
@@ -53,30 +40,30 @@ namespace Speedometer.Editor_Mode
                     if (IsToEditThePosition)
                     {
                         if (e.KeyCode is Keys.Up)
-                            _ptfY -= 1 + _velocity;
+                            PtfY -= 1 + Velocity;
                         else if (e.KeyCode == Keys.Down)
-                            _ptfY += 1 + _velocity;
+                            PtfY += 1 + Velocity;
 
                         if (e.KeyCode is Keys.Left)
-                            _ptfX -= 1 + _velocity;
+                            PtfX -= 1 + Velocity;
                         else if (e.KeyCode == Keys.Right)
-                            _ptfX += 1 + _velocity;
+                            PtfX += 1 + Velocity;
                     }
                     else if (IsToEditTheSize)
                     {
                         if (e.KeyCode is Keys.Up)
-                            _szY -= 1 + _velocity;
+                            SzY -= 1 + Velocity;
                         else if (e.KeyCode == Keys.Down)
-                            _szY += 1 + _velocity;
+                            SzY += 1 + Velocity;
 
                         if (e.KeyCode is Keys.Left)
-                            _szX -= 1 + _velocity;
+                            SzX -= 1 + Velocity;
                         else if (e.KeyCode == Keys.Right)
-                            _szX += 1 + _velocity;
+                            SzX += 1 + Velocity;
                     }
                 }
 
-                if (e.KeyCode is Keys.D1)
+                if (e.Modifiers is Keys.Shift && e.KeyCode is Keys.D1)
                 {
                     var Input = Game.GetUserInput();
 
@@ -89,29 +76,29 @@ namespace Speedometer.Editor_Mode
                             //SaveConfigOfSize();
                             break;
                         case "Edit Mode: On":
-                            _isEditorModeEnabled = true;
+                            IsEditorModeEnabled = true;
                             break;
                         case "Edit Mode: Off":
-                            _isEditorModeEnabled = false;
-                            _isToEditThePosition = false;
-                            _isToEditTheSize = false;
+                            IsEditorModeEnabled = false;
+                            IsToEditThePosition = false;
+                            IsToEditTheSize = false;
                             break;
                         case "Text Element: Distance":
-                            _element = "Distance";
+                            Element = "Distance";
                             break;
                         case "Text Element: Speed":
-                            _element = "Speed";
+                            Element = "Speed";
                             break;
                         case "Text Element: Time":
-                            _element = "Time";
+                            Element = "Time";
                             break;
                         case "Sprite: Speedometer":
-                            _element = "Speedometer";
+                            Element = "Speedometer";
                             break;
                     }
                 }
 
-                if (e.KeyCode is Keys.D2)
+                if (e.Modifiers is Keys.Shift && e.KeyCode is Keys.D2)
                 {
                     if (IsEditorModeEnabled)
                     {
@@ -120,35 +107,35 @@ namespace Speedometer.Editor_Mode
                         switch (Input)
                         {
                             case "Edit Position":
-                                _isToEditThePosition = true;
-                                _isToEditTheSize = false;
+                                IsToEditThePosition = true;
+                                IsToEditTheSize = false;
                                 break;
                             case "Edit Size":
-                                _isToEditTheSize = true;
-                                _isToEditThePosition = false;
+                                IsToEditTheSize = true;
+                                IsToEditThePosition = false;
                                 break;
                         }
                     }
                 }
 
                 if (e.KeyCode is Keys.Oemplus)
-                    _velocity += 1;
+                    Velocity++;
                 else if (e.KeyCode is Keys.OemMinus)
-                    _velocity -= 1;
+                    Velocity--;
             };
         }
 
         internal static void DrawInfos()
         {
-            string instructions = "~b~Set what you will edit~w~";
-            string instructions2 = "~y~Use the D2 key to choose between~w~ '~y~Edit Position~w~' or '~y~Edit Size~w~'";
+            string instruction = "~b~Set what you will edit~w~";
+            string instruction2 = "~y~Use the D2 key to choose between~w~ '~y~Edit Position~w~' or '~y~Edit Size~w~'";
 
-            if (_element is null)
+            if (Element is null)
             {
-                new TextElement($"Mode Edit: [~g~{IsEditorModeEnabled}~w~] / [{instructions}] [{instructions2}] (Element: ~o~{_element}~w~)", new System.Drawing.PointF(200f, 200f), 0.40f).Draw();
+                new TextElement($"Mode Edit: [~g~{IsEditorModeEnabled}~w~] / [{instruction}] [{instruction2}] (Element: ~o~{Element}~w~)", new System.Drawing.PointF(200f, 200f), 0.40f).Draw();
             }
 
-            switch (_element)
+            switch (Element)
             {
                 case "Speedometer":
                     new SpeedometerAttributes();

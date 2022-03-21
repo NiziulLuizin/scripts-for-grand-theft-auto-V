@@ -5,7 +5,7 @@ using Speedometer.Draw.Text_Element.Time;
 
 namespace Speedometer
 {
-    internal static class SpriteManager
+    internal class SpriteManager
     {
         internal static void DisplayTheCurrentSpeedometer()
         {
