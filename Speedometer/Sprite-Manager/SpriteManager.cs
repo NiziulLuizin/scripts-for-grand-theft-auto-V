@@ -9,10 +9,14 @@ namespace Speedometer
     {
         internal static void DisplayTheCurrentSpeedometer()
         {
-            CurrentSpeedometer.Draw();
-            Distance.Draw();
-            Speed.Draw();
-            Time.Draw();
+            CurrentSpeedometer
+                .Draw();
+            Distance
+                .Draw();
+            Speed
+                .Draw();
+            Time
+                .Draw();
         }
     }
 }

@@ -3,7 +3,7 @@ using GTA.UI;
 
 namespace Speedometer.Draw.Text_Element.Time
 {
-    internal static class Time
+    internal class Time
     {
         internal static void Draw()
         {

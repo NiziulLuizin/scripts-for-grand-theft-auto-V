@@ -13,6 +13,6 @@ namespace Speedometer.Draw.Text_Element.Distance
                             DistanceTextElementSettings.Color,
                             DistanceTextElementSettings.Font,
                             DistanceTextElementSettings.Alignment).Draw();
-        }   
+        }  
     }
 }

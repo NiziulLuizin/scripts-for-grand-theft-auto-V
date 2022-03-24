@@ -3,16 +3,22 @@ using GTA.UI;
 using System.Windows.Forms;
 using Speedometer.Draw.Text_Element.Editor_Mode.Informations.Sprites;
 using Speedometer.Draw.Text_Element.Editor_Mode.Informations.Text_Elements;
+using Speedometer.Settings_Manager;
+using System.Drawing;
+using Speedometer.Draw.Settings.For_The_Sprites;
 
 namespace Speedometer.Editor_Mode
 {
     internal class EditorMode : Script
     {
+        internal static string PathToTheScriptFolder
+        { get; private set; }
+
         internal static bool IsEditorModeEnabled 
         { get; private set; }
         internal static bool IsToEditThePosition 
         { get; private set; }
-        internal static bool IsToEditTheSize 
+        internal static bool IsToEditTheSizeOrScale 
         { get; private set; }
 
         internal static string Element 
@@ -24,130 +30,144 @@ namespace Speedometer.Editor_Mode
         { get; private set; }
         internal static float PtfY 
         { get; private set; }
-        internal static float SzX 
+        internal static float SzW 
         { get; private set; }
-        internal static float SzY 
+        internal static float SzH 
         { get; private set; }
-
 
 
         public EditorMode()
         {
-            KeyDown += (o, e) =>
+            PathToTheScriptFolder = GetRelativeFilePath("Speedometer\\Settings");
+
+            Tick += (o, e) =>
             {
-                if (IsEditorModeEnabled)
-                {
-                    if (IsToEditThePosition)
-                    {
-                        if (e.KeyCode is Keys.Up)
-                            PtfY -= 1 + Velocity;
-                        else if (e.KeyCode == Keys.Down)
-                            PtfY += 1 + Velocity;
-
-                        if (e.KeyCode is Keys.Left)
-                            PtfX -= 1 + Velocity;
-                        else if (e.KeyCode == Keys.Right)
-                            PtfX += 1 + Velocity;
-                    }
-                    else if (IsToEditTheSize)
-                    {
-                        if (e.KeyCode is Keys.Up)
-                            SzY -= 1 + Velocity;
-                        else if (e.KeyCode == Keys.Down)
-                            SzY += 1 + Velocity;
-
-                        if (e.KeyCode is Keys.Left)
-                            SzX -= 1 + Velocity;
-                        else if (e.KeyCode == Keys.Right)
-                            SzX += 1 + Velocity;
-                    }
-                }
-
-                if (e.Modifiers is Keys.Shift && e.KeyCode is Keys.D1)
-                {
-                    var Input = Game.GetUserInput();
-
-                    switch (Input)
-                    {
-                        case "SavePosition()":
-                            //SaveConfigOfPosition();
-                            break;
-                        case "SaveSize()":
-                            //SaveConfigOfSize();
-                            break;
-                        case "Edit Mode: On":
-                            IsEditorModeEnabled = true;
-                            break;
-                        case "Edit Mode: Off":
-                            IsEditorModeEnabled = false;
-                            IsToEditThePosition = false;
-                            IsToEditTheSize = false;
-                            break;
-                        case "Text Element: Distance":
-                            Element = "Distance";
-                            break;
-                        case "Text Element: Speed":
-                            Element = "Speed";
-                            break;
-                        case "Text Element: Time":
-                            Element = "Time";
-                            break;
-                        case "Sprite: Speedometer":
-                            Element = "Speedometer";
-                            break;
-                    }
-                }
-
-                if (e.Modifiers is Keys.Shift && e.KeyCode is Keys.D2)
-                {
-                    if (IsEditorModeEnabled)
-                    {
-                        var Input = Game.GetUserInput();
-
-                        switch (Input)
-                        {
-                            case "Edit Position":
-                                IsToEditThePosition = true;
-                                IsToEditTheSize = false;
-                                break;
-                            case "Edit Size":
-                                IsToEditTheSize = true;
-                                IsToEditThePosition = false;
-                                break;
-                        }
-                    }
-                }
-
-                if (e.KeyCode is Keys.Oemplus)
-                    Velocity++;
-                else if (e.KeyCode is Keys.OemMinus)
-                    Velocity--;
+                if (IsEditorModeEnabled) DisplayEditingInformation();
             };
+
+            KeyUp += OperationOfTheEditorMode;
+
+            KeyDown += PositionEditingMode;
+            KeyDown += SizeOrScaleEditinMode;
         }
 
-        internal static void DrawInfos()
+        private void OperationOfTheEditorMode(object sender, KeyEventArgs e)
         {
-            string instruction = "~b~Set what you will edit~w~";
-            string instruction2 = "~y~Use the D2 key to choose between~w~ '~y~Edit Position~w~' or '~y~Edit Size~w~'";
-
-            if (Element is null)
+            if (e.Modifiers is Keys.Shift && e.KeyCode is Keys.D1)
             {
-                new TextElement($"Mode Edit: [~g~{IsEditorModeEnabled}~w~] / [{instruction}] [{instruction2}] (Element: ~o~{Element}~w~)", new System.Drawing.PointF(200f, 200f), 0.40f).Draw();
+                var Input = Game.GetUserInput();
+
+                switch (Input)
+                {
+                    case "Edit Mode: On":
+                        IsEditorModeEnabled = true;
+                        break;
+                    case "Edit Mode: Off":
+                        IsEditorModeEnabled = false;
+                        IsToEditThePosition = false;
+                        IsToEditTheSizeOrScale = false;
+                        break;
+                    case "Edit: TextDistance":
+                        Element = "Distance";
+                        break;
+                    case "Edit: TextSpeed":
+                        Element = "Speed";
+                        break;
+                    case "Edit: TextTime":
+                        Element = "Time";
+                        break;
+                    case "Edit: SpriteSpeedometer":
+                        Element = "Speedometer";
+                        break;
+                }
             }
+
+            if (e.Modifiers is Keys.Shift && e.KeyCode is Keys.D2 && IsEditorModeEnabled)
+            {
+                var Input = Game.GetUserInput();
+                switch (Input)
+                {
+                    case "Save: Position":
+                        SettingsManager.Save("PtfX", SpeedometerBase.Position.X);
+                        SettingsManager.Save("PtfY", SpeedometerBase.Position.Y);
+                        break;
+                    case "Save: Size":
+                        SettingsManager.Save("SizeF", SpeedometerBase.Size);
+                        break;
+                    case "Edit: Position":
+                        IsToEditThePosition = true;
+                        IsToEditTheSizeOrScale = false;
+                        break;
+                    case "Edit: Size/Scale":
+                        IsToEditTheSizeOrScale = true;
+                        IsToEditThePosition = false;
+                        break;
+                }
+            }
+
+            if (e.KeyCode is Keys.Oemplus)
+                Velocity++;
+            else if (e.KeyCode is Keys.OemMinus)
+                Velocity--;
+        }
+        private void SizeOrScaleEditinMode(object sender, KeyEventArgs e)
+        {
+            if (IsToEditTheSizeOrScale)
+            {
+                if (e.KeyCode is Keys.Up)
+                    SzH -= 1 + Velocity;
+                else if (e.KeyCode == Keys.Down)
+                    SzH += 1 + Velocity;
+                if (e.KeyCode is Keys.Left)
+                    SzW -= 1 + Velocity;
+                else if (e.KeyCode == Keys.Right)
+                    SzW += 1 + Velocity;
+            }
+        }
+        private void PositionEditingMode(object sender, KeyEventArgs e)
+        {
+            if (IsToEditThePosition)
+            {
+                if (e.KeyCode is Keys.Up)
+                    PtfY -= 1 + Velocity;
+                else if (e.KeyCode == Keys.Down)
+                    PtfY += 1 + Velocity;
+                if (e.KeyCode is Keys.Left)
+                    PtfX -= 1 + Velocity;
+                else if (e.KeyCode == Keys.Right)
+                    PtfX += 1 + Velocity;
+            }
+        }
+
+        void DisplayEditingInformation()
+        {
+            var instruction = new string[]
+            {
+                "~b~Set what you will edit~w~",
+                "~y~Use the D2 key to choose between~w~ '~y~Edit Position~w~' or '~y~Edit Size/Scale~w~'"
+            };
+
+            if (!IsToEditThePosition && !IsToEditTheSizeOrScale)
+                new TextElement($"Mode Edit: [~g~{IsEditorModeEnabled}~w~] / [{instruction[0]}] [{instruction[1]}]", new System.Drawing.PointF(200f, 200f), 0.40f).Draw();
+
 
             switch (Element)
             {
                 case "Speedometer":
-                    new SpeedometerAttributes();
+                    SpeedometerAttributes
+                        .Draw();
                     break;
                 case "Distance":
-                    new DistanceAttributes();
+                    DistanceAttributes
+                        .Draw();
                     break;
                 case "Speed":
-                    new SpeedAttributes();
+                    SpeedAttributes
+                        .Draw();
                     break;
                 case "Time":
-                    new TimeAttributes();
+                    TimeAttributes
+                        .Draw();
                     break;
             }
         }
