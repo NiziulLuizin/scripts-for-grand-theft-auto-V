@@ -1,6 +1,4 @@
-﻿using GTA;
-
-namespace Speedometer.Directory_Manager.Content
+﻿namespace Speedometer.Directory_Manager.Content
 {
     sealed class SpeedometerIconsFolder : DirectoryManager
     {
