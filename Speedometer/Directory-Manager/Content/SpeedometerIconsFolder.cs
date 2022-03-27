@@ -1,64 +1,101 @@
 ﻿namespace Speedometer.Directory_Manager.Content
 {
-    sealed class SpeedometerIconsFolder : DirectoryManager
+    sealed class SpeedometerIconsFolder : DirectoryManager, System.IDisposable
     {
-        private static readonly string[] _pathIcons =
+        private readonly string[] _pathIcons =
         {
             $@"{PathOfIcons}\",
             $@"{PathOfIcons}Metric\",
             $@"{PathOfIcons}Imperial\"
         };
+        private bool disposedValue;
 
-        internal static string[] SimpleIcons
-        { get { return ReturnAllSimpleIcons(); } }
-        internal static string[] MetricIcons
+        private string[] SimpleIcons
+        { get { return ReturnAllIconsSimple(); } }
+        private string[] MetricIcons
         { get { return ReturnAllMetricIcons(); } }
-        internal static string[] ImperialIcons
+        private string[] ImperialIcons
         { get { return ReturnAllImperialIcons(); } }
 
-        internal static string GiveMeThePathOfThis(int icon, string type)
+        internal string GiveMeThePathOfThis(int icon, string type)
         {
-            return CheckTheTypeAndPassMeTheCorrectIcon(icon, type);
+            return CheckTheTypeAndPassMeTheCorrect(icon, type);
         }
-        internal static string GiveMeTheNameOfThis(int icon, string type)
+        internal string GiveMeTheNameOfThis(int icon, string type)
         {
             int path;
             switch (type)
             {
-                case "Metric": path = 1;
+                case "Metric":
+                    path = 1;
                     break;
-                case "Imperial": path = 2;
+                case "Imperial":
+                    path = 2;
                     break;
-                default: path = 0;
+                default:
+                    path = 0;
                     break;
             }
             return GiveMeThePathOfThis(icon, type).Remove(0, _pathIcons[path].Length);
         }
 
-        private static string CheckTheTypeAndPassMeTheCorrectIcon(int icon, string type)
+        private string CheckTheTypeAndPassMeTheCorrect(int icon, string type)
         {
+            disposedValue = false;
             return type
                    is "Simple"
                    ? SimpleIcons[icon]
-                   : type 
+                   : type
                    is "Metric"
                    ? MetricIcons[icon]
-                   : type 
+                   : type
                    is "Imperial"
                    ? ImperialIcons[icon]
                    : null;
         }
-        private static string[] ReturnAllSimpleIcons()
+        private string[] ReturnAllIconsSimple()
         {
             return ReturnThePathOfTheItemsPresentInThe(_pathIcons[0]);
         }
-        private static string[] ReturnAllMetricIcons()
+        private string[] ReturnAllMetricIcons()
         {
             return ReturnThePathOfTheItemsPresentInThe(_pathIcons[1]);
         }
-        private static string[] ReturnAllImperialIcons()
+        private string[] ReturnAllImperialIcons()
         {
             return ReturnThePathOfTheItemsPresentInThe(_pathIcons[2]);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    if (SimpleIcons != null)
+                    {
+                        for (int i = 0; i < SimpleIcons.Length; i++)
+                            SimpleIcons[i] = null;
+                    }
+                    else if (MetricIcons != null)
+                    {
+                        for (int i = 0; i < MetricIcons.Length; i++)
+                            MetricIcons[i] = null;
+                    }
+                    else if (ImperialIcons != null)
+                    {
+                        for (int i = 0; i < ImperialIcons.Length; i++)
+                            ImperialIcons[i] = null;
+                    }
+                }
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            System.GC.SuppressFinalize(this);
         }
     }
 }
