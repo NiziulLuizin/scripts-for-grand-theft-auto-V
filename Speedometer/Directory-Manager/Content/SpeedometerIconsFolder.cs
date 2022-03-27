@@ -2,7 +2,7 @@
 {
     sealed class SpeedometerIconsFolder : DirectoryManager, System.IDisposable
     {
-        private readonly string[] _pathIcons =
+        private readonly string[] _icons =
         {
             $@"{PathOfIcons}\",
             $@"{PathOfIcons}Metric\",
@@ -11,11 +11,11 @@
         private bool disposedValue;
 
         private string[] SimpleIcons
-        { get { return ReturnAllIconsSimple(); } }
+        { get { return AllIconsSimple(); } }
         private string[] MetricIcons
-        { get { return ReturnAllMetricIcons(); } }
+        { get { return AllMetricIcons(); } }
         private string[] ImperialIcons
-        { get { return ReturnAllImperialIcons(); } }
+        { get { return AllImperialIcons(); } }
 
         internal string GiveMeThePathOfThis(int icon, string type)
         {
@@ -36,7 +36,7 @@
                     path = 0;
                     break;
             }
-            return GiveMeThePathOfThis(icon, type).Remove(0, _pathIcons[path].Length);
+            return GiveMeThePathOfThis(icon, type).Remove(0, _icons[path].Length);
         }
 
         private string CheckTheTypeAndPassMeTheCorrect(int icon, string type)
@@ -53,17 +53,22 @@
                    ? ImperialIcons[icon]
                    : null;
         }
-        private string[] ReturnAllIconsSimple()
+        private string[] AllIconsSimple()
         {
-            return ReturnThePathOfTheItemsPresentInThe(_pathIcons[0]);
+            return ReturnAllDirectory(_icons[0]);
         }
-        private string[] ReturnAllMetricIcons()
+        private string[] AllMetricIcons()
         {
-            return ReturnThePathOfTheItemsPresentInThe(_pathIcons[1]);
+            return ReturnAllDirectory(_icons[1]);
         }
-        private string[] ReturnAllImperialIcons()
+        private string[] AllImperialIcons()
         {
-            return ReturnThePathOfTheItemsPresentInThe(_pathIcons[2]);
+            return ReturnAllDirectory(_icons[2]);
+        }
+
+        private string[] ReturnAllDirectory(string icons)
+        {
+            return ReturnThePathOfTheItemsPresentInThe(folder: icons);
         }
 
         private void Dispose(bool disposing)
@@ -73,20 +78,13 @@
                 if (disposing)
                 {
                     if (SimpleIcons != null)
-                    {
-                        for (int i = 0; i < SimpleIcons.Length; i++)
-                            SimpleIcons[i] = null;
-                    }
-                    else if (MetricIcons != null)
-                    {
-                        for (int i = 0; i < MetricIcons.Length; i++)
-                            MetricIcons[i] = null;
-                    }
-                    else if (ImperialIcons != null)
-                    {
-                        for (int i = 0; i < ImperialIcons.Length; i++)
-                            ImperialIcons[i] = null;
-                    }
+                        for (int i = 0; i < SimpleIcons.Length; i++) SimpleIcons[i] = null;
+
+                    if (MetricIcons != null)
+                        for (int i = 0; i < MetricIcons.Length; i++) MetricIcons[i] = null;
+
+                    if (ImperialIcons != null)
+                        for (int i = 0; i < ImperialIcons.Length; i++) ImperialIcons[i] = null;
                 }
                 disposedValue = true;
             }
