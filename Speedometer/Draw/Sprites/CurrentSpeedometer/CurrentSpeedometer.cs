@@ -3,14 +3,13 @@ using Speedometer.Draw.Settings.For_The_Sprites;
 
 namespace Speedometer.Draw.Sprites.CurrentSpeedometer
 {
-    internal class CurrentSpeedometer 
+    internal class CurrentSpeedometer : SpeedometerBase
     {
-        internal static void Draw()
+        public CustomSprite GettingThe(ushort baseSpeedometer)
         {
-            new Sprite(SpeedometerBase.Directory,
-                       SpeedometerBase.Name,
-                       SpeedometerBase.Size,
-                       SpeedometerBase.Position).ScaledDraw(SpeedometerBase.Offset);
+            return new CustomSprite(GiveMeTheCorrectFilenameThe(baseSpeedometer),
+                                    GiveMeTheCorrectSizeThe(baseSpeedometer),
+                                    GiveMeTheCorrectPositionThe(baseSpeedometer)) { Centered = true };
         }
     }
 }

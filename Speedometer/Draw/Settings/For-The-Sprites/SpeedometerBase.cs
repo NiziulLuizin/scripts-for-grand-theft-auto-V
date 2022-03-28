@@ -1,28 +1,22 @@
-﻿using GTA;
-using Speedometer.Editor_Mode;
-using Speedometer.Settings_Manager;
-using System.Drawing;
+﻿using System.Drawing;
+using Speedometer.Directory_Manager.Content;
 
 namespace Speedometer.Draw.Settings.For_The_Sprites
 {
-    internal class SpeedometerBase
-    {
-        internal static PointF Position { get; set; }
-        internal static SizeF Offset
+    internal abstract class SpeedometerBase : BaseForSpeedometerFolder
+    {    
+        protected SizeF GiveMeTheCorrectSizeThe(ushort baseSpeedometer)
         {
-            get { return Size; }
+            using (var _ = Image.FromFile(GiveMeTheCorrectFilenameThe(baseSpeedometer)))
+                return new SizeF(_.Size.Width / 5, _.Size.Height / 5);
         }
-        internal static string Directory
+        protected PointF GiveMeTheCorrectPositionThe(ushort baseSpeedometer)
         {
-            get { return "Speedometer"; }
-        }        
-        internal static string Name
-        {
-            get { return "SpeedometerK-Type-1"; }
+            return new PointF(840f, 650f);
         }
-        internal static SizeF Size
+        protected string GiveMeTheCorrectFilenameThe(ushort baseSpeedometer)
         {
-            get { return new SizeF(180f / 1.5f, 96f / 1.5f); }
+            return GiveMeThePathOfThis(baseSpeedometer);
         }
     }
 }
