@@ -1,6 +1,6 @@
 ﻿namespace Speedometer.Directory_Manager.Content
 {
-    sealed class SpeedometerIconsFolder : DirectoryManager, System.IDisposable
+    sealed class SpeedometerIconsFolder : DirectoryManager
     {
         private readonly string[] _icons =
         {
@@ -8,7 +8,7 @@
             $@"{PathOfIcons}Metric\",
             $@"{PathOfIcons}Imperial\"
         };
-        private bool disposedValue;
+        private bool _disposedValue;
 
         private string[] SimpleIcons
         { get { return AllIconsSimple(); } }
@@ -17,11 +17,12 @@
         private string[] ImperialIcons
         { get { return AllImperialIcons(); } }
 
-        internal string GiveMeThePathOfThis(int icon, string type)
+        protected override string GiveMeThePathOfThis(ushort icon, string type)
         {
-            return CheckTheTypeAndPassMeTheCorrect(icon, type);
+            return CheckTheTypeAndPassMeTheCorrect(icon,
+                                                   type);
         }
-        internal string GiveMeTheNameOfThis(int icon, string type)
+        protected override string GiveMeTheNameOfThis(ushort icon, string type)
         {
             int path;
             switch (type)
@@ -36,12 +37,14 @@
                     path = 0;
                     break;
             }
-            return GiveMeThePathOfThis(icon, type).Remove(0, _icons[path].Length);
+            return GiveMeThePathOfThis(icon,
+                                       type).Remove(0,
+                                                    _icons[path].Length);
         }
 
-        private string CheckTheTypeAndPassMeTheCorrect(int icon, string type)
+        private string CheckTheTypeAndPassMeTheCorrect(ushort icon, string type)
         {
-            disposedValue = false;
+            _disposedValue = false;
             return type
                    is "Simple"
                    ? SimpleIcons[icon]
@@ -53,6 +56,7 @@
                    ? ImperialIcons[icon]
                    : null;
         }
+
         private string[] AllIconsSimple()
         {
             return ReturnAllDirectory(_icons[0]);
@@ -73,7 +77,7 @@
 
         private void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
@@ -86,11 +90,11 @@
                     if (ImperialIcons != null)
                         for (int i = 0; i < ImperialIcons.Length; i++) ImperialIcons[i] = null;
                 }
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             Dispose(disposing: true);
             System.GC.SuppressFinalize(this);
