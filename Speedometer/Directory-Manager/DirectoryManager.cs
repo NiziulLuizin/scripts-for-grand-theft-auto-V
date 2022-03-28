@@ -13,9 +13,9 @@ namespace Speedometer.Directory_Manager
         { throw new System.NotImplementedException(); }
         protected virtual string GiveMeThePathOfThis(ushort item, string type)
         { throw new System.NotImplementedException(); }
-        protected virtual string GiveMeTheNameOfThis(ushort baseSpeedometer)
+        protected virtual string GiveMeTheNameOfThis(ushort item)
         { throw new System.NotImplementedException(); }
-        protected virtual string GiveMeTheNameOfThis(ushort baseSpeedometer, string type)
+        protected virtual string GiveMeTheNameOfThis(ushort item, string type)
         { throw new System.NotImplementedException(); }
 
         public virtual void Dispose()
