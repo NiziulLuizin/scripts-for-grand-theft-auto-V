@@ -19,12 +19,19 @@
 
         protected override string GiveMeThis(string sprite)
         {
-            if (sprite.Contains("Simples"))
+            string[] types =
+            {
+                "simples",
+                "miles",
+                "km",
+            };
+
+            if (sprite.Contains(types[0]))
                 return CompleteDirectoryOfThis(sprite, folder: SimpleIcons);
-            else if (sprite.Contains("Metric"))
-                return CompleteDirectoryOfThis(sprite, folder: MetricIcons);
-            else if (sprite.Contains("Imperial"))
+            else if (sprite.Contains(types[1]))
                 return CompleteDirectoryOfThis(sprite, folder: ImperialIcons);
+            else if (sprite.Contains(types[2]))
+                return CompleteDirectoryOfThis(sprite, folder: MetricIcons);
 
             return string.Empty;
         }
