@@ -4,11 +4,11 @@ using Speedometer.Draw.Text_Element.Speed.In;
 
 namespace Speedometer.Draw.Settings.For_The_Text_Elements
 {
-    internal class SpeedTextElementSettings
+    internal sealed class SpeedTextElementSettings
     {
         internal static float Scale
         {
-            get { return 0.50f; }
+            get { return 1.0f; }
         }
         internal static Color Color
         {
@@ -20,7 +20,7 @@ namespace Speedometer.Draw.Settings.For_The_Text_Elements
         }
         internal static PointF Position
         {
-            get { return new PointF(644f, 662f); }
+            get { return new PointF(840f, 625f); }
         }
         internal static GTA.UI.Alignment Alignment
         {

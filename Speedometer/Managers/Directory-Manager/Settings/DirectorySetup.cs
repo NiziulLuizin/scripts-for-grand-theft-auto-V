@@ -1,6 +1,6 @@
 ﻿using Speedometer.Editor_Mode;
 
-namespace Speedometer.Directory_Manager.Settings
+namespace Speedometer.Managers.Directory_Manager.Settings
 {
     abstract class DirectorySetup
     {

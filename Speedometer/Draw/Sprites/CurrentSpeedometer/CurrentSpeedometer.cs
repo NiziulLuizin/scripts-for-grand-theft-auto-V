@@ -1,15 +1,22 @@
-﻿using GTA.UI;
-using Speedometer.Draw.Settings.For_The_Sprites;
+﻿using Speedometer.Draw.Settings.For_The_Sprites;
 
 namespace Speedometer.Draw.Sprites.CurrentSpeedometer
 {
     internal class CurrentSpeedometer : SpeedometerBase
     {
-        public CustomSprite GettingThe(ushort baseSpeedometer)
+        private string _baseSpeedometer;
+        public GTA.UI.CustomSprite GettingThe(string baseSpeedometer)
         {
-            return new CustomSprite(GiveMeTheCorrectFilenameThe(baseSpeedometer),
-                                    GiveMeTheCorrectSizeThe(baseSpeedometer),
-                                    GiveMeTheCorrectPositionThe(baseSpeedometer)) { Centered = true };
+            _baseSpeedometer = baseSpeedometer;
+            return new GTA.UI.CustomSprite(CorrectFilenameThe(baseSpeedometer),
+                                           CorrectSizeThe(baseSpeedometer),
+                                           CorrectPositionThe())
+            { Centered = true };
+        }
+
+        public System.Drawing.SizeF GettingSizeF()
+        {
+            return CorrectSizeThe(_baseSpeedometer);
         }
     }
 }

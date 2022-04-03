@@ -1,9 +1,9 @@
 ﻿using GTA;
 using System.IO;
-using Speedometer.Editor_Mode;
 using System.Drawing;
+using Speedometer.Editor_Mode;
 
-namespace Speedometer.Settings_Manager
+namespace Speedometer.Managers.Settings_Manager
 {
     internal class SettingsManager
     {
@@ -11,9 +11,9 @@ namespace Speedometer.Settings_Manager
 
         private static readonly string[] _settings = new string[] 
         { 
-            $"\\Sprites\\Sprites-Parameters.ini",
-            $"\\Text-Elements\\Texts-Elements-Parameters.ini",
-            $"\\ConfigKeys.ini"
+            $"Settings\\Sprites\\Sprites-Parameters.ini",
+            $"Settings\\Text-Elements\\Texts-Elements-Parameters.ini",
+            $"Settings\\ConfigKeys.ini"
         };
 
         internal static PointF GetTheCurrentPosition(int settingsNumber)
@@ -30,13 +30,13 @@ namespace Speedometer.Settings_Manager
             var size = file.GetValue(Sections.ReturnsTheCurrentScreenSettings(), "SizeF", new SizeF());
             return size;
         }
-        internal static void Save<T>(string nameOfValue, T value)
+        internal static void Save<T>(int fileNumber, string nameOfValue, T value)
         {
-            int settingsNumber = TheSettingsBelongToWhichElement();
+            int _fileNumber = fileNumber;
 
             CreateTheConfigurationFilesIfTheyDoNotExist();
 
-            var file = ScriptSettings.Load($"{_directory}{_settings[settingsNumber]}");
+            var file = ScriptSettings.Load($"{_directory}{_settings[_fileNumber]}");
                 file.SetValue(Sections.ReturnsTheCurrentScreenSettings(), nameOfValue, value);
                 file.Save();
         }
@@ -58,9 +58,9 @@ namespace Speedometer.Settings_Manager
                 if (!File.Exists($"{_directory}{_settings[i]}"))
                     CreateTheParameterFiles(i);
         }
-        static void CreateTheParameterFiles(int fileName)
+        static void CreateTheParameterFiles(int fileNumber)
         {
-            var file = ScriptSettings.Load($"{_directory}{_settings[fileName]}");
+            var file = ScriptSettings.Load($"{_directory}{_settings[fileNumber]}");
                 file.Save();
         }
     }

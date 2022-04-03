@@ -1,11 +1,7 @@
 ﻿using GTA;
-using GTA.UI;
 using System.Windows.Forms;
 using Speedometer.Draw.Text_Element.Editor_Mode.Informations.Sprites;
 using Speedometer.Draw.Text_Element.Editor_Mode.Informations.Text_Elements;
-using Speedometer.Settings_Manager;
-using System.Drawing;
-using Speedometer.Draw.Settings.For_The_Sprites;
 
 namespace Speedometer.Editor_Mode
 {
@@ -35,21 +31,28 @@ namespace Speedometer.Editor_Mode
         internal static float SzH 
         { get; private set; }
 
-
+        //System.Drawing.PointF currentPosition;
         public EditorMode()
         {
-            PathToTheScriptFolder = GetRelativeFilePath("Speedometer\\Settings");
-
+            PathToTheScriptFolder = GetRelativeFilePath(@"Speedometer\");        
+            
             Tick += (o, e) =>
             {
-                if (IsEditorModeEnabled) DisplayEditingInformation();
+                //currentPosition = new System.Drawing.PointF(845f + PtfX, 650f + PtfY);
+
+                if (IsEditorModeEnabled) 
+                    DisplayEditingInformation();
+
+                //if (Game.Player.Character.IsInVehicle())
             };
 
             KeyUp += OperationOfTheEditorMode;
 
             KeyDown += PositionEditingMode;
             KeyDown += SizeOrScaleEditinMode;
+
         }
+
 
         private void OperationOfTheEditorMode(object sender, KeyEventArgs e)
         {
@@ -67,6 +70,32 @@ namespace Speedometer.Editor_Mode
                         IsToEditThePosition = false;
                         IsToEditTheSizeOrScale = false;
                         break;
+                }
+            }
+
+            if (e.Modifiers is Keys.Shift && e.KeyCode is Keys.D2 && IsEditorModeEnabled)
+            {
+                var Input = Game.GetUserInput();
+                switch (Input)
+                {
+                    case "Save: Position":
+                        //SettingsManager.Save(2, "PtfX", currentPosition.X);
+                        //SettingsManager.Save(2, "PtfY", currentPosition.Y);
+                        
+                        //SettingsManager.Save("PtfX", SpeedometerBase.Position.X);
+                        //SettingsManager.Save("PtfY", SpeedometerBase.Position.Y);
+                        break;
+                    case "Save: Size":
+                        //SettingsManager.Save("SizeF", SpeedometerBase.Size);
+                        break;
+                    case "Edit: Position":
+                        IsToEditThePosition = true;
+                        IsToEditTheSizeOrScale = false;
+                        break;
+                    case "Edit: Size/Scale":
+                        IsToEditTheSizeOrScale = true;
+                        IsToEditThePosition = false;
+                        break;
                     case "Edit: TextDistance":
                         Element = "Distance";
                         break;
@@ -78,29 +107,6 @@ namespace Speedometer.Editor_Mode
                         break;
                     case "Edit: SpriteSpeedometer":
                         Element = "Speedometer";
-                        break;
-                }
-            }
-
-            if (e.Modifiers is Keys.Shift && e.KeyCode is Keys.D2 && IsEditorModeEnabled)
-            {
-                var Input = Game.GetUserInput();
-                switch (Input)
-                {
-                    case "Save: Position":
-                        SettingsManager.Save("PtfX", SpeedometerBase.Position.X);
-                        SettingsManager.Save("PtfY", SpeedometerBase.Position.Y);
-                        break;
-                    case "Save: Size":
-                        SettingsManager.Save("SizeF", SpeedometerBase.Size);
-                        break;
-                    case "Edit: Position":
-                        IsToEditThePosition = true;
-                        IsToEditTheSizeOrScale = false;
-                        break;
-                    case "Edit: Size/Scale":
-                        IsToEditTheSizeOrScale = true;
-                        IsToEditThePosition = false;
                         break;
                 }
             }
@@ -141,32 +147,16 @@ namespace Speedometer.Editor_Mode
 
         void DisplayEditingInformation()
         {
-            var instruction = new string[]
-            {
-                "~b~Set what you will edit~w~",
-                "~y~Use the D2 key to choose between~w~ '~y~Edit Position~w~' or '~y~Edit Size/Scale~w~'"
-            };
-
-            if (!IsToEditThePosition && !IsToEditTheSizeOrScale)
-                new TextElement($"Mode Edit: [~g~{IsEditorModeEnabled}~w~] / [{instruction[0]}] [{instruction[1]}]", new System.Drawing.PointF(200f, 200f), 0.40f).Draw();
-
-
+            //new GTA.UI.TextElement($"Position X: ~r~{currentPosition.X}~w~ Position Y: ~r~{currentPosition.Y}~w~ Velocity: ~r~{EditorMode.Velocity}~w~", new System.Drawing.PointF(200f, 200f), 0.40f).Draw();
+            
             switch (Element)
             {
                 case "Speedometer":
                     SpeedometerAttributes
                         .Draw();
                     break;
-                case "Distance":
-                    DistanceAttributes
-                        .Draw();
-                    break;
                 case "Speed":
                     SpeedAttributes
-                        .Draw();
-                    break;
-                case "Time":
-                    TimeAttributes
                         .Draw();
                     break;
             }

@@ -3,16 +3,16 @@ using GTA.UI;
 
 namespace Speedometer.Draw.Text_Element.Speed
 {
-    internal class Speed
+    internal static class Speed
     {
-        internal static void Draw()
+        public static void CurrentSpeed(System.Drawing.SizeF offset)
         {
-            new TextElement(SpeedTextElementSettings.CorrectSpeed,
-                            SpeedTextElementSettings.Position,
-                            SpeedTextElementSettings.Scale,
-                            SpeedTextElementSettings.Color,
-                            SpeedTextElementSettings.Font,
-                            SpeedTextElementSettings.Alignment).Draw();
+             new TextElement(SpeedTextElementSettings.CorrectSpeed,
+                                   SpeedTextElementSettings.Position,
+                                   SpeedTextElementSettings.Scale,
+                                   SpeedTextElementSettings.Color,
+                                   SpeedTextElementSettings.Font,
+                                   SpeedTextElementSettings.Alignment).ScaledDraw(offset);
         }        
     }
 }

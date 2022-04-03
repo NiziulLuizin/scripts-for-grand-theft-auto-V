@@ -1,12 +1,11 @@
 ﻿using GTA.UI;
 
-namespace Speedometer.Settings_Manager
+namespace Speedometer.Managers.Settings_Manager
 {
-    internal class Sections
+    internal sealed class Sections
     {
         internal static float AspectRatio
         { get { return Screen.AspectRatio; } }
-
         internal static string ReturnsTheCurrentScreenSettings()
         {
             return $"AspectRation: @{AspectRatio}";

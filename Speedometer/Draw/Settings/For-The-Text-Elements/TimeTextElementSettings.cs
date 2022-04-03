@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Speedometer.Draw.Settings.For_The_Text_Elements
 {
-    internal class TimeTextElementSettings
+    internal sealed class TimeTextElementSettings
     {      
         internal static float Scale
         {
