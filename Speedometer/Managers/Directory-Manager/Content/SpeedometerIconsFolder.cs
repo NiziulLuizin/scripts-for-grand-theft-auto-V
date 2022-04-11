@@ -38,8 +38,8 @@
         private string CompleteDirectoryOfThis(string spriteName, string[] folder)
         {
             foreach (var imageName in folder)
-                if (spriteName.Contains(imageName))
-                    return spriteName;
+                if (imageName.Contains(spriteName))
+                    return imageName;
 
             return string.Empty;
         }
