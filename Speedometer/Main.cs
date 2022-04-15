@@ -47,8 +47,8 @@ namespace Speedometer
                 new GTA.UI.TextElement(string.Empty, positionToCurrentGear, scaleToCurrentGear)
                 { Color = Color.White, Outline = true, Centered = true };
 
-
-
+            GTA.Prop.
+            
             Tick += (o, e) =>
             {
                 if (!Game.IsLoading)
