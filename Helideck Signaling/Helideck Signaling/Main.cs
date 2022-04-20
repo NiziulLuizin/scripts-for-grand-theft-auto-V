@@ -6,11 +6,10 @@ namespace Helideck_Signaling
 {
     public class Main : Script
     {
-        bool isCreated;
+        private bool areBlipsOnTheMap = false;
+
         public Main()
         {
-            isCreated = false;
-
             var positionOfHelipads = new[]
             {
                 new Vector3(-75.0856934f, -819.14386f, 326.169922f),
@@ -41,7 +40,7 @@ namespace Helideck_Signaling
                 new Vector3(-1877.10583f, 2805.39771f, 31.808012f)
             };
 
-            CreateBlip HelipadsBlips = new CreateBlip();
+            var HelipadsBlips = new CreateBlip();
 
             Tick += (o, e) =>
             {
@@ -49,17 +48,18 @@ namespace Helideck_Signaling
                 {
                     if (Game.Player.Character.CurrentVehicle.Type == VehicleType.Helicopter)
                     {
-                        if (isCreated == false)
+                        if (!areBlipsOnTheMap)
                         {
                             HelipadsBlips = new CreateBlip(positionOfHelipads);
-                            isCreated = true;
+                            areBlipsOnTheMap = true;
                         }
+                        MakeTheBlipVisibleAtLongDistancesOnTheMinimapIfTheHelipadtIsMarkedOnTheMap(positionOfHelipads, HelipadsBlips);
                     }
                 }
                 else if (!HelipadsBlips.IsEmpty())
                 {
                     HelipadsBlips.Delete();
-                    isCreated = false;
+                    areBlipsOnTheMap = false;
                 }
             };
 
@@ -68,13 +68,22 @@ namespace Helideck_Signaling
                 if (!HelipadsBlips.IsEmpty())
                 {
                     HelipadsBlips.Delete();
-                    isCreated = false;
                 }
             };
 
-            KeyUp += (o, e) => 
+            KeyUp += (o, e) => { };
+        }
+
+        private void MakeTheBlipVisibleAtLongDistancesOnTheMinimapIfTheHelipadtIsMarkedOnTheMap(Vector3[] positionOfHelipads, CreateBlip HelipadsBlips)
+        {
+            if (World.WaypointBlip != null)
             {
-            };
+                HelipadsBlips.MakeTheHelipadBlipVisibleOnTheMinimapAtLongDistances();
+            }
+            else
+            {
+                HelipadsBlips.MakeTheHelipadBlipInvisible();
+            }
         }
     }
 }

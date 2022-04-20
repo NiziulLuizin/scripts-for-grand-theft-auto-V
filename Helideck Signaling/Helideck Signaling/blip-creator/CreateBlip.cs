@@ -1,4 +1,5 @@
-﻿using GTA.Math;
+﻿using GTA;
+using GTA.Math;
 using System.Collections.Generic;
 
 namespace Helideck_Signaling.blip_creator
@@ -12,22 +13,37 @@ namespace Helideck_Signaling.blip_creator
         {
             Helipads = new List<HelipadBlip>();
         }
-        public CreateBlip(Vector3[] positions) 
+        public CreateBlip(Vector3[] positions)
             : this()
         {
             foreach (var position in positions)
-                Create(position);
+                Helipads.Add(new HelipadBlip(position));
         }
 
-        private void Create(Vector3 position)
+        internal void MakeTheHelipadBlipVisibleOnTheMinimapAtLongDistances()
         {
-            Helipads.Add(new HelipadBlip(position));
+            foreach (var helipad in Helipads)
+            {
+                if (helipad.Position.X == World.WaypointPosition.X &&
+                    helipad.Position.Y == World.WaypointPosition.Y &&
+                    helipad.IsTheBlipShortRange())
+                {
+                    helipad.MakeTheBlipVisibleOnTheMinimap();
+                    World.WaypointBlip.IsShortRange = true;
+                }
+            }
         }
-
-        internal bool IsEmpty()
+        internal void MakeTheHelipadBlipInvisible()
         {
-            return Helipads.Count == 0;
+            foreach (var helipad in Helipads)
+            {
+                if (!helipad.IsTheBlipShortRange())
+                {
+                    helipad.MakeTheBlipInvisibleOnTheMinimap();
+                }
+            }
         }
+        internal bool IsEmpty() => Helipads.Count == 0;
         internal void Delete()
         {
             foreach (var blip in Helipads)
