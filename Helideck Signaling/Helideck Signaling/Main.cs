@@ -1,5 +1,6 @@
 ﻿using GTA;
 using GTA.Math;
+using GTA.UI;
 using Helideck_Signaling.blip_creator;
 
 namespace Helideck_Signaling
@@ -7,6 +8,9 @@ namespace Helideck_Signaling
     public class Main : Script
     {
         private bool areBlipsOnTheMap = false;
+
+        private CreateBlip HelipadsBlips = new CreateBlip();
+
 
         public Main()
         {
@@ -37,26 +41,25 @@ namespace Helideck_Signaling
                 new Vector3(-1112.55347f, -2884.27222f, 12.9474373f),
                 new Vector3(478.457397f, -3369.92749f, 5.07133722f),
                 new Vector3(-1859.73132f, 2795.22998f, 31.8080139f),
-                new Vector3(-1877.10583f, 2805.39771f, 31.808012f)
+                new Vector3(-1877.10583f, 2805.39771f, 31.808012f),
+                new Vector3(476.561188f, -1106.66003f, 43.075634f),
+                new Vector3(579.831238f, 12.6151848f, 103.228325f),
+                new Vector3(-582.899902f, -930.494446f, 36.8335571f)
             };
-
-            var HelipadsBlips = new CreateBlip();
 
             Tick += (o, e) =>
             {
-                if (Game.Player.Character.IsSittingInVehicle())
+                if (IsThePlayerDrivingAHelicopter())
                 {
-                    if (Game.Player.Character.CurrentVehicle.Type == VehicleType.Helicopter)
+                    if (!areBlipsOnTheMap)
                     {
-                        if (!areBlipsOnTheMap)
-                        {
-                            HelipadsBlips = new CreateBlip(positionOfHelipads);
-                            areBlipsOnTheMap = true;
-                        }
-                        MakeTheBlipVisibleAtLongDistancesOnTheMinimapIfTheHelipadtIsMarkedOnTheMap(positionOfHelipads, HelipadsBlips);
+                        HelipadsBlips = new CreateBlip(positionOfHelipads);
+                        areBlipsOnTheMap = true;
                     }
+                    MakeTheBlipVisibleAtLongDistancesOnTheMinimap();
+
                 }
-                else if (!HelipadsBlips.IsEmpty())
+                else
                 {
                     HelipadsBlips.Delete();
                     areBlipsOnTheMap = false;
@@ -66,24 +69,27 @@ namespace Helideck_Signaling
             Aborted += (o, e) =>
             {
                 if (!HelipadsBlips.IsEmpty())
-                {
                     HelipadsBlips.Delete();
-                }
             };
 
-            KeyUp += (o, e) => { };
+            KeyUp += (o, e) =>
+            {
+                
+            };
         }
 
-        private void MakeTheBlipVisibleAtLongDistancesOnTheMinimapIfTheHelipadtIsMarkedOnTheMap(Vector3[] positionOfHelipads, CreateBlip HelipadsBlips)
+        private bool IsThePlayerDrivingAHelicopter()
         {
-            if (World.WaypointBlip != null)
-            {
+            return Game.Player.Character.IsInHeli;
+        }
+        private void MakeTheBlipVisibleAtLongDistancesOnTheMinimap()
+        {
+            var isIheWaypointInUse = World.WaypointBlip != null;
+
+            if (isIheWaypointInUse)
                 HelipadsBlips.MakeTheHelipadBlipVisibleOnTheMinimapAtLongDistances();
-            }
             else
-            {
                 HelipadsBlips.MakeTheHelipadBlipInvisible();
-            }
         }
     }
 }

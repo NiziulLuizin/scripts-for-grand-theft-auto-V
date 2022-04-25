@@ -34,6 +34,9 @@ namespace Helideck_Signaling.blip_creator
             BlipDisplayType.BothMapSelectable
         };
 
+
+
+
         public HelipadBlip(Vector3 position)
         {
             Position = position;
@@ -44,9 +47,8 @@ namespace Helideck_Signaling.blip_creator
         private void MakerBlip()
         {
             for (int i = 0; i < 2; i++)
-            {
                 blips[i] = World.CreateBlip(Position);
-            }
+
             DefaultSettingForBlips();
         }
 
@@ -77,16 +79,12 @@ namespace Helideck_Signaling.blip_creator
         internal void MakeTheBlipVisibleOnTheMinimap()
         {
             for (int i = 0; i < 2; i++)
-            {
                 blips[i].IsShortRange = false;
-            }
         }
         internal void MakeTheBlipInvisibleOnTheMinimap()
         {
             for (int i = 0; i < 2; i++)
-            {
                 blips[i].IsShortRange = true;
-            }
         }
         internal bool IsTheBlipShortRange() => blips[0].IsShortRange;
         internal void Delete()

@@ -6,8 +6,8 @@ namespace Helideck_Signaling.blip_creator
 {
     class CreateBlip
     {
-        protected List<HelipadBlip> Helipads
-        { get; private set; }
+        private List<HelipadBlip> Helipads
+        { get; set; }
 
         public CreateBlip()
         {
@@ -20,29 +20,39 @@ namespace Helideck_Signaling.blip_creator
                 Helipads.Add(new HelipadBlip(position));
         }
 
-        internal void MakeTheHelipadBlipVisibleOnTheMinimapAtLongDistances()
-        {
-            foreach (var helipad in Helipads)
-            {
-                if (helipad.Position.X == World.WaypointPosition.X &&
-                    helipad.Position.Y == World.WaypointPosition.Y &&
-                    helipad.IsTheBlipShortRange())
-                {
-                    helipad.MakeTheBlipVisibleOnTheMinimap();
-                    World.WaypointBlip.IsShortRange = true;
-                }
-            }
-        }
         internal void MakeTheHelipadBlipInvisible()
         {
             foreach (var helipad in Helipads)
-            {
                 if (!helipad.IsTheBlipShortRange())
-                {
                     helipad.MakeTheBlipInvisibleOnTheMinimap();
+        }
+
+        internal void MakeTheHelipadBlipVisibleOnTheMinimapAtLongDistances()
+        {
+            MakeSureThePositionOfTheHelipadMatchesThatOfTheWaypoint();
+        }
+
+        void MakeSureThePositionOfTheHelipadMatchesThatOfTheWaypoint()
+        {
+            var waypointPosition = World.WaypointPosition;
+
+            foreach (var helipad in Helipads)
+            {
+                if (helipad.Position.X == waypointPosition.X &&
+                    helipad.Position.Y == waypointPosition.Y &&
+                    helipad.IsTheBlipShortRange())
+                {
+                    MakeTheBlipVisibleOnTheMinimap(helipad);
                 }
             }
         }
+        void MakeTheBlipVisibleOnTheMinimap(HelipadBlip helipad)
+        {
+            helipad.MakeTheBlipVisibleOnTheMinimap();
+            World.WaypointBlip.IsShortRange = true;
+        }
+
+        
         internal bool IsEmpty() => Helipads.Count == 0;
         internal void Delete()
         {
