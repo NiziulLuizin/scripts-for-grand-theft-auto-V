@@ -12,7 +12,7 @@ namespace Helideck_Signaling.blip_creator
         internal Vector3 Position
         { get; private set; }
 
-        private readonly Blip[] blips = new Blip[2];
+        internal readonly Blip[] blips = new Blip[2];
         private readonly float[] blipSize =
         {
             0.40f,
@@ -47,7 +47,9 @@ namespace Helideck_Signaling.blip_creator
         private void MakerBlip()
         {
             for (int i = 0; i < 2; i++)
+            {
                 blips[i] = World.CreateBlip(Position);
+            }
 
             DefaultSettingForBlips();
         }
@@ -59,20 +61,20 @@ namespace Helideck_Signaling.blip_creator
                 blips[i].Sprite =
                     blipSprite[i];
 
-                blips[i].Name =
-                    "Helipad";
+                blips[i].Scale =
+                    blipSize[i];
 
                 blips[i].Color =
                     blipColor[i];
 
-                blips[i].Scale =
-                    blipSize[i];
+                blips[i].DisplayType =
+                    displayType[i];
+
+                blips[i].Name =
+                    "Helipad";
 
                 blips[i].IsShortRange =
                     true;
-
-                blips[i].DisplayType =
-                    displayType[i];
             }
         }
 
@@ -90,8 +92,12 @@ namespace Helideck_Signaling.blip_creator
         internal void Delete()
         {
             foreach (var blip in blips)
+            {
                 if (blip != null)
+                {
                     blip.Delete();
+                }
+            }
         }
     }
 }
