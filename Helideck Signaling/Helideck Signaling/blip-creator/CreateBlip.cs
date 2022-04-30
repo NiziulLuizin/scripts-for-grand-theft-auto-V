@@ -18,7 +18,8 @@ namespace Helideck_Signaling.blip_creator
 
         public CreateBlip()
         {
-            Helipads = new List<HelipadBlip>();
+            Helipads = 
+                new List<HelipadBlip>();
         }
         public CreateBlip(Vector3[] positions) : this()
         {
@@ -27,11 +28,19 @@ namespace Helideck_Signaling.blip_creator
                 Helipads.Add(new HelipadBlip(position));
             }
 
-            CheckAndAddNewHelipadsToTheMap();
+            CheckIfThereAreNewHelipadsOnTheMapAndIfSoAddBlip();
         }
 
-        private void CheckAndAddNewHelipadsToTheMap()
+        private void CheckIfThereAreNewHelipadsOnTheMapAndIfSoAddBlip()
         {
+            foreach (var prop in World.GetAllProps())
+            {
+                if (prop.Model == modelHelipad[0] ||
+                    prop.Model == modelHelipad[1])
+                {
+                    Helipads.Add(new HelipadBlip(prop.Position));
+                }
+            }
             foreach (var build in World.GetAllBuildings())
             {
                 if (build.Model == modelHelipad[0] ||
@@ -40,25 +49,18 @@ namespace Helideck_Signaling.blip_creator
                     Helipads.Add(new HelipadBlip(build.Position));
                 }
             }
-
-            foreach (var propHelipad in World.GetAllProps(modelHelipad[0],
-                                                          modelHelipad[1]))
-            {
-                Helipads.Add(new HelipadBlip(propHelipad.Position));
-            }
         }
 
         internal void MakeTheHelipadBlipInvisible()
         {
             foreach (var helipad in Helipads)
             {
-                if (!helipad.IsTheBlipShortRange())
+                if (!helipad.IsShortRange())
                 {
                     helipad.MakeTheBlipInvisibleOnTheMinimap();
                 }
             }
         }
-
         internal void MakeTheHelipadBlipVisibleOnTheMinimapAtLongDistances()
         {
             var waypointPosition = World.WaypointPosition;
@@ -67,7 +69,7 @@ namespace Helideck_Signaling.blip_creator
             {
                 if (helipad.Position.X == waypointPosition.X &&
                     helipad.Position.Y == waypointPosition.Y &&
-                    helipad.IsTheBlipShortRange())
+                    helipad.IsShortRange())
                 {
                     helipad.MakeTheBlipVisibleOnTheMinimap();
                     World.WaypointBlip.IsShortRange = true;
@@ -75,15 +77,14 @@ namespace Helideck_Signaling.blip_creator
             }
         }
 
-
         internal bool IsEmpty() => Helipads.Count == 0;
         internal void ClearsTheMapLeavingOnlyTheSelectedBlips()
         {
-            foreach (var blip in Helipads)
+            foreach (var helipadBlip in Helipads)
             {
-                if (blip.IsTheBlipShortRange())
+                if (helipadBlip.IsShortRange())
                 {
-                    blip.Delete();
+                    helipadBlip.Delete();
                 }
             }
         }

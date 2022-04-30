@@ -1,6 +1,7 @@
 ﻿using GTA;
 using GTA.Math;
 using Helideck_Signaling.blip_creator;
+using Helideck_Signaling.setup_manager;
 
 namespace Helideck_Signaling
 {
@@ -29,7 +30,7 @@ namespace Helideck_Signaling
             new Vector3(-144.464355f, -593.464966f, 210.776611f),
             new Vector3(-286.335968f, -618.134583f, 49.3393173f),
             new Vector3(-1391.49451f, -477.454987f, 90.2572632f),
-            new Vector3(-1581.92261f, -569.445129f, 115.334038f), //
+            new Vector3(-1581.92261f, -569.445129f, 115.334038f),
             new Vector3(-1219.6731f, -832.077759f, 28.4144821f),
             new Vector3(-1095.55115f, -834.919495f, 36.6768074f),
             new Vector3(-735.308044f, -1456.47986f, 4.00194979f),
@@ -45,16 +46,20 @@ namespace Helideck_Signaling
             new Vector3(352.0242f, -588.054321f, 74.4528046f)
         };
 
-
+        // public
+        // restricted
+        // prohibited
         public Main()
         {
+            new Settings(GetRelativeFilePath("HelideckSignaling"));
+
             Tick += (o, e) =>
             { Start(); };
 
             Aborted += (o, e) =>
-            { End(); };
+            { Finish(); };
         }
-
+        
         private void Start()
         {
             if (Game.Player.Character.IsInHeli)
@@ -66,7 +71,7 @@ namespace Helideck_Signaling
                 ClearAllBlipsFromTheMap();
             }
         }
-        private void End()
+        private void Finish()
         {
             ClearAllBlipsFromTheMap();
         }
@@ -74,7 +79,7 @@ namespace Helideck_Signaling
 
         void BlipBehaviors()
         {
-            if (Game.Player.Character.CurrentVehicle.IsStopped)
+            if (!Game.Player.Character.CurrentVehicle.IsInAir)
             {
                 if (!areThereBlipsOnTheMap)
                 {
@@ -85,9 +90,7 @@ namespace Helideck_Signaling
             }
             else
             {
-                Wait(2500);
                 HelipadsBlips.ClearsTheMapLeavingOnlyTheSelectedBlips();
-
                 areThereBlipsOnTheMap = false;
             }
         }
@@ -112,9 +115,13 @@ namespace Helideck_Signaling
             var isIheWaypointInUse = World.WaypointBlip != null;
 
             if (isIheWaypointInUse)
+            {
                 HelipadsBlips.MakeTheHelipadBlipVisibleOnTheMinimapAtLongDistances();
+            }
             else
+            {
                 HelipadsBlips.MakeTheHelipadBlipInvisible();
+            }
         }
     }
 }
