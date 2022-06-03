@@ -11,11 +11,11 @@ namespace Waypoint_marked_with_laser.adjustments_for_the_laser_beam.beams_types
 {
     class PrefabricatedBeam
     {
-        public PrefabricatedBeam(StPrefabricatedBeamSetup prefabricatedBeamManager)
+        public PrefabricatedBeam(StPrefabricatedBeamSetup stPrefabricatedBeamSetup)
         {
-            Activate(prefabricatedBeamManager);
+            Activate(stPrefabricatedBeamSetup);
         }
-        void Activate(StPrefabricatedBeamSetup prefabricatedBeamManager)
+        void Activate(StPrefabricatedBeamSetup stPrefabricatedBeamSetup)
         {
             var playerPosition =
                 Game.Player.Character.Position;
@@ -27,36 +27,36 @@ namespace Waypoint_marked_with_laser.adjustments_for_the_laser_beam.beams_types
 
 
             var faceCam =
-                prefabricatedBeamManager.FaceCamera;
+                stPrefabricatedBeamSetup.FaceCamera;
 
             var rotateY =
-                prefabricatedBeamManager.RotateY;
+                stPrefabricatedBeamSetup.RotateY;
 
             var isBobUpAndDown =
-                prefabricatedBeamManager.IsBobUpAndDown;
+                stPrefabricatedBeamSetup.IsBobUpAndDown;
 
             var rotation =
-                prefabricatedBeamManager.Rotation;
+                stPrefabricatedBeamSetup.Rotation;
 
             var direction =
                 new Vector3(0f, 0f, 0f);
 
             var color =
-                prefabricatedBeamManager.Color;
+                stPrefabricatedBeamSetup.Color;
 
             var shape =
-                prefabricatedBeamManager.MarkerType;
+                stPrefabricatedBeamSetup.MarkerType;
 
             var numberOfMarkers =
-                prefabricatedBeamManager.NumberOfMakers;
+                stPrefabricatedBeamSetup.NumberOfMakers;
 
             var verticalSpace =
-                prefabricatedBeamManager.VerticalSpace;
+                stPrefabricatedBeamSetup.VerticalSpace;
 
             // 0.0100f; good!
 
             var baseScale =
-                prefabricatedBeamManager.Scale;
+                stPrefabricatedBeamSetup.Scale;
 
             for (int i = 0; i < numberOfMarkers; i++)
             {
