@@ -16,7 +16,7 @@ namespace Waypoint_marked_with_laser.adjustments_for_the_laser_beam
                 "xs_prop_arena_barrel_01a_sf"
             };
 
-            var position =
+            var waypointPosition =
                 World.WaypointPosition;
 
             var hasPhysics =
@@ -26,9 +26,9 @@ namespace Waypoint_marked_with_laser.adjustments_for_the_laser_beam
                 false;
 
             var laserHeight =
-                new Vector3(x: position.X,
-                            y: position.Y,
-                            z: position.Z + 2000f);
+                new Vector3(x: waypointPosition.X,
+                            y: waypointPosition.Y,
+                            z: waypointPosition.Z + 2000f);
 
 
             for (var i = (byte)0; i < _structures.Length; i++)
