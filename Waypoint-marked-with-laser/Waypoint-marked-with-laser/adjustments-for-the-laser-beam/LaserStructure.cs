@@ -1,29 +1,22 @@
-﻿using GTA;
+using GTA;
 using GTA.Math;
 
 namespace Waypoint_marked_with_laser.adjustments_for_the_laser_beam
 {
     class LaserStructure
     {
-        private Vector3 _position =
-            new Vector3();
-
-        private Prop[] _laserStructures =
+        private Prop[] _structures =
             new Prop[2];
-
-        private readonly string[] _modelNameLaser =
-        {
-            "xs_prop_arena_barrel_01a_sf",
-            "xs_prop_arena_bollard_side_01a_sf"
-        };
-
-
-
-        public LaserStructure() { }
 
         internal void CreateTheLaserStructure()
         {
-            _position =
+            var modelName = new[]
+            {
+                "xs_prop_arena_bollard_side_01a_sf",
+                "xs_prop_arena_barrel_01a_sf"
+            };
+
+            var position =
                 World.WaypointPosition;
 
             var hasPhysics =
@@ -33,25 +26,22 @@ namespace Waypoint_marked_with_laser.adjustments_for_the_laser_beam
                 false;
 
             var laserHeight =
-                new Vector3(_position.X,
-                            _position.Y,
-                            _position.Z + 2000f);
+                new Vector3(x: position.X,
+                            y: position.Y,
+                            z: position.Z + 2000f);
 
 
-            _laserStructures[0] =
-                World
-                    .CreateProp(_modelNameLaser[1],
-                                laserHeight,
-                                hasPhysics,
-                                IsToStayOnTheGround);
+            for (var i = (byte)0; i < _structures.Length; i++)
+            {
+                _structures[i] =
+                    World
+                        .CreateProp(model        : modelName[i],
+                                    position     : laserHeight,
+                                    dynamic      : hasPhysics,
+                                    placeOnGround: IsToStayOnTheGround);
 
-            _laserStructures[1] =
-                World
-                    .CreateProp(_modelNameLaser[0],
-                                laserHeight,
-                                hasPhysics,
-                                IsToStayOnTheGround);
 
+            }
 
             BasicLaserStructureSettings();
         }
@@ -68,20 +58,21 @@ namespace Waypoint_marked_with_laser.adjustments_for_the_laser_beam
                             z: -0.399999976f);
 
 
-            _laserStructures[1].Rotation =
-                rotation;
+            _structures[1]
+                .Rotation = rotation;
 
-            _laserStructures[0]
-                .AttachTo(_laserStructures[1],
-                          relativeRotation);
+            _structures[0]
+                .AttachTo(entity  : _structures[1],
+                          position: relativeRotation);
         }
         internal void DestroyTheLaserStructure()
         {
-            foreach (var laserStructure in _laserStructures)
+            foreach (var structure in _structures)
             {
-                if (laserStructure != null)
+                if (structure != null)
                 {
-                    laserStructure.Delete();
+                    structure
+                        .Delete();
                 }
             }
         }
