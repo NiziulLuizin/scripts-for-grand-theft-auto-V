@@ -2,138 +2,170 @@
 using GTA.Math;
 using GTA.Native;
 
+using Helideck_Signaling.setup_manager;
+
+
 namespace Helideck_Signaling.blip_creator
 {
-    class HelipadBlip
+    internal sealed class HelipadBlip
     {
-        /*
-             #1: sonicWave
-             #2: theJewelStoreJob
-        */
-        internal Vector3 Position
+        internal Vector3 Position 
         { get; private set; }
 
-        internal readonly Blip[] blips = new Blip[2];
+        internal bool IsShortRange
+        { get; private set; } = true;
 
+        private Blip[] _blips;
 
-        private readonly float[] blipScale =
-        {
-            0.40f,
-            0.30f
-        };
-        private readonly string[] colorCode =
-        {
-            "~w~",  // HUD_COLOUR_WHITE
-            "~y~", // HUD_COLOUR_YELLOW
-            "~b~" // HUD_COLOUR_BLUE
-        };
-        private readonly BlipColor[] blipColor =
-        {
-            BlipColor.Yellow,
-            BlipColor.White
-        };
-        private readonly BlipSprite[] blipSprite =
-        {
-            BlipSprite.SonicWave,
-            BlipSprite.TheJewelStoreJob
-        };
-        private readonly BlipDisplayType[] displayType =
-        {
-            BlipDisplayType.BothMapNoSelectable,
-            BlipDisplayType.BothMapSelectable
-        };
-        private readonly BlipCategoryType[] categoryType =
-        {
-            BlipCategoryType.Property,
-            BlipCategoryType.OwnedProperty
-        };
 
         public HelipadBlip(Vector3 position)
         {
-            Position = position;
+            if (_blips == null)
+                _blips = 
+                    new Blip[2];
+
+            Position =
+                position;
 
             MakerBlip();
         }
 
         private void MakerBlip()
         {
-            for (var i = 0; i < 2; i++)
+            for (var i = (byte)0; i < 2; i++)
             {
-                blips[i] = World.CreateBlip(Position);
+                _blips[i] =
+                    World
+                        .CreateBlip(Position);
             }
 
             DefaultSettingForBlips();
         }
-
-        void DefaultSettingForBlips()
+        private void DefaultSettingForBlips()
         {
-            var colorId = 
-                setup_manager.SettingColor.ColorId;
+            var blipScale = new[]
+            {
+                0.40f,
+                0.30f
+            };
+            var colorCode = new[]
+            {
+                "~w~",  // HUD_COLOUR_WHITE
+                "~y~", // HUD_COLOUR_YELLOW
+                "~b~" // HUD_COLOUR_BLUE
+            };
+            var blipColor = new[]
+            {
+                BlipColor.Yellow,
+                BlipColor.White
+            };
+            var blipSprite = new[]
+            {
+                BlipSprite.SonicWave,
+                BlipSprite.TheJewelStoreJob
+            };
+            var displayType = new[]
+            {
+                BlipDisplayType.BothMapNoSelectable,
+                BlipDisplayType.BothMapSelectable
+            };
+            var categoryType = new[]
+            {
+                BlipCategoryType.Property,
+                BlipCategoryType.OwnedProperty
+            };
 
-            var isShortRange = 
+            var colorId = 
+                new Settings()
+                        .ReturnColorForTheBlip();
+
+            var isShortRange =
                 true;
 
-            var formattingCodes = 
-                "~italic~";
-
             var zoneLocalizedName =
-                World.GetZoneLocalizedName(Position);
+                World
+                    .GetZoneLocalizedName(Position);
 
             var nameOfHelipadLocation =
-                $"{colorCode[2]}Helipad{colorCode[0]} - {colorCode[1] + formattingCodes + zoneLocalizedName}";
+                $"{colorCode[2]}Helipad{colorCode[0]} - {colorCode[1] + zoneLocalizedName}";
 
-            for (var i = 0; i < 2; i++)
+
+            for (var i = (byte)0; i < 2; i++)
             {
-                blips[i].Sprite =
+                _blips[i].Sprite =
                     blipSprite[i];
 
-                blips[i].Scale =
+                _blips[i].Scale =
                     blipScale[i];
 
-                blips[i].Color =
+                _blips[i].Color =
                     blipColor[i];
 
-                blips[i].DisplayType =
+                _blips[i].DisplayType =
                     displayType[i];
 
-                blips[i].CategoryType =
-                    categoryType[i - i];
+                _blips[i].CategoryType =
+                    categoryType[1];
 
-                blips[i].IsShortRange =
+                _blips[i].IsShortRange =
                     isShortRange;
 
-                blips[i].Name =
+                _blips[i].Name =
                     nameOfHelipadLocation;
             }
-            SetBlipColor(blips[0], colorId);
+
+            SetBlipColor(_blips[0], colorId);
+        }
+        private void SetBlipColor(Blip blip, byte color)
+        {
+            var hash =
+                Hash
+                    .SET_BLIP_COLOUR;
+
+            var argument0 =
+                blip;
+
+            var argument1 =
+                color;
+
+            Function
+                .Call(hash, 
+                      argument0, 
+                      argument1);
         }
 
-        void SetBlipColor(Blip blip, int color)
-        {
-            Function.Call(Hash.SET_BLIP_COLOUR, blip, color);
-        }
         internal void MakeTheBlipVisibleOnTheMinimap()
         {
-            for (var i = 0; i < 2; i++)
+            for (var i = (byte)0; i < 2; i++)
             {
-                blips[i].IsShortRange = false;
+                _blips[i]
+                    .IsShortRange =
+                        false;
             }
+
+            IsShortRange =
+                false;
         }
         internal void MakeTheBlipInvisibleOnTheMinimap()
         {
-            for (var i = 0; i < 2; i++)
+            for (var i = (byte)0; i < 2; i++)
             {
-                blips[i].IsShortRange = true;
+                _blips[i]
+                    .IsShortRange =
+                        true;
             }
+
+            IsShortRange =
+                true;
         }
-        internal bool IsShortRange() => blips[0].IsShortRange;
         internal void Delete()
         {
-            foreach (var blip in blips)
+            foreach (var blip in _blips)
             {
                 if (blip != null)
                 {
-                    blip.Delete();
+                    blip
+                        .Delete();
                 }
             }
         }
