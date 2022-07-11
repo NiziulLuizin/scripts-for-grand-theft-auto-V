@@ -131,7 +131,8 @@ namespace Helideck_Signaling
                     case true:
                         {
                             var vehicleBelongsToThePlayer =
-                                vehicleOnTheLandingArea == _player.CurrentVehicle;
+                                vehicleOnTheLandingArea == _player
+                                                                .CurrentVehicle;
 
                             if (vehicleBelongsToThePlayer)
                             {
@@ -139,9 +140,6 @@ namespace Helideck_Signaling
                             }
                             else
                             {
-                                GTA.UI
-                                    .Notification
-                                        .Show($"~b~{vehicleOnTheLandingArea.DisplayName}~w~ - deleted!");
 
                                 if (vehicleOnTheLandingArea
                                         .IsHelicopter &&
@@ -150,8 +148,13 @@ namespace Helideck_Signaling
                                    !vehicleOnTheLandingArea
                                         .IsInAir)
                                 {
+                                    GTA.UI
+                                        .Notification
+                                            .Show($"~b~{vehicleOnTheLandingArea.DisplayName}~w~ - deleted!");
+                                    
                                     vehicleOnTheLandingArea
                                         .Delete();
+                                    
                                 }
                             }
                         }

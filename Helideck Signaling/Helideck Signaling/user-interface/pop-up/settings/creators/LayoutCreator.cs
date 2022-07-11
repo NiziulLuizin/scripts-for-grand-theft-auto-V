@@ -111,15 +111,6 @@ namespace Helideck_Signaling.user_interface.pop_up.settings.creators
                         }
                         else
                         {
-                            if (_bodyCount > 0)
-                            {
-                                _bodyCount = 0;
-                            }
-                            else if (_bodyCount == 0)
-                            {
-                                _bodyCount++;
-                            }
-
                             for (var i = 0; i < _spriteList.Count; i++)
                             {
                                 if (i == 0)
@@ -137,6 +128,15 @@ namespace Helideck_Signaling.user_interface.pop_up.settings.creators
                                 sprite
                                     .Position = new PointF(position.X,
                                                            position.Y + Position.Y);
+                            }
+
+                            if (_bodyCount == 0)
+                            {
+                                _bodyCount++;
+                            }
+                            else if (_bodyCount > 0)
+                            {
+                                _bodyCount = 0;
                             }
                         }
                     }
