@@ -37,6 +37,10 @@ namespace Helideck_Signaling.user_interface.pop_up
                 layoutGroupManager
                                 .LayoutsTimer;
 
+            var layoutsGroupAlert =
+                layoutGroupManager
+                                .LayoutsAlert;
+
             layoutsGroupTop
                 .Add(new LayoutCreator(LayoutGroups
                                                 .TOP));
@@ -49,31 +53,25 @@ namespace Helideck_Signaling.user_interface.pop_up
                 .Add(new LayoutCreator(LayoutGroups
                                                 .BODY, true));
 
-            layoutsGroupBody
-                .Add(new LayoutCreator(LayoutGroups
-                                                .BODY, true));
-
-            layoutsGroupBody
-                .Add(new LayoutCreator(LayoutGroups
-                                                .BODY, true));
-
             layoutsGroupBottom
                 .Add(new LayoutCreator(LayoutGroups
                                                 .BOTTOM));
+
+            layoutsGroupAlert
+                .Add(new LayoutCreator(LayoutGroups
+                                                .ALERT));
 
             //layoutsGroupTimer
             //    .Add(new LayoutCreator(LayoutGroups
             //                                    .TIMER));
 
-            ConfigureAsNotSelectedThis(element: 0, layout: layoutsGroupBody);
-            ConfigureAsNotSelectedThis(element: 1, layout: layoutsGroupBody);
-            ConfigureAsNotSelectedThis(element: 2, layout: layoutsGroupBody);
-            ConfigureAsNotSelectedThis(element: 3, layout: layoutsGroupBody);
-
             var indexT = 0;
 
             Tick += (o, e) =>
             {
+                layoutGroupManager
+                    .ScaledDrawThis(layoutsGroupAlert);
+
                 layoutGroupManager
                     .ScaledDrawThis(layoutsGroupBottom);
 
@@ -172,6 +170,11 @@ namespace Helideck_Signaling.user_interface.pop_up
                             }
                         }
                         return;
+                    case System.Windows.Forms.Keys.NumPad5:
+                        {
+                            Pause();
+                        }
+                        return;
                 }
             };
         }
@@ -179,49 +182,18 @@ namespace Helideck_Signaling.user_interface.pop_up
         private void ConfigureAsSelectedThis(byte element, IList<LayoutCreator> layout)
         {
             layout[element]
-                .DisableAllSprites();
-
-            layout[element]
-                .EnableThis(spriteIndex: 0);
+                .DisableThis(spriteIndex: 2);
 
             layout[element]
                 .EnableThis(spriteIndex: 1);
-
-            layout[element]
-                .EnableThis(spriteIndex: 3);
-
-            layout[element]
-                .EnableThis(spriteIndex: 5);
-
-            layout[element]
-                .EnableThis(spriteIndex: 7);
-
-            layout[element]
-                .EnableThis(spriteIndex: 8);
         }
-        
         private void ConfigureAsNotSelectedThis(byte element, IList<LayoutCreator> layout)
         {
             layout[element]
-                .DisableAllSprites();
-
-            layout[element]
-                .EnableThis(spriteIndex: 0);
+                .DisableThis(spriteIndex: 1);
 
             layout[element]
                 .EnableThis(spriteIndex: 2);
-
-            layout[element]
-                .EnableThis(spriteIndex: 4);
-
-            layout[element]
-                .EnableThis(spriteIndex: 6);
-
-            layout[element]
-                .EnableThis(spriteIndex: 7);
-
-            layout[element]
-                .EnableThis(spriteIndex: 8);
         }
     }
 }

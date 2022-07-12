@@ -139,6 +139,15 @@ namespace Helideck_Signaling.user_interface.pop_up.settings.creators
                                 _bodyCount = 0;
                             }
                         }
+
+                        DisableAllSprites();
+
+                        EnableThis(spriteIndex: 0);
+                        EnableThis(spriteIndex: 2);
+                        EnableThis(spriteIndex: 4);
+                        EnableThis(spriteIndex: 6);
+                        EnableThis(spriteIndex: 7);
+                        EnableThis(spriteIndex: 8);
                     }
                     break;
                 case LayoutGroups
@@ -155,7 +164,7 @@ namespace Helideck_Signaling.user_interface.pop_up.settings.creators
 
                             sprite
                                 .Position = new PointF(position.X,
-                                                       _positionForTheNextLayoutGroup.Y - 1.5f);
+                                                       _positionForTheNextLayoutGroup.Y - 2.0f);
                         }
                     }
                     break;
@@ -180,7 +189,19 @@ namespace Helideck_Signaling.user_interface.pop_up.settings.creators
                 case LayoutGroups
                                 .ALERT:
                     {
+                        for (var i = 0; i < _spriteList.Count; i++)
+                        {
+                            var sprite =
+                                _spriteList[i];
 
+                            var position =
+                                sprite
+                                    .Position;
+
+                            sprite
+                                .Position = new PointF(position.X,
+                                                       _positionForTheNextLayoutGroup.Y + 10f);
+                        }
                     }
                     break;
             }
