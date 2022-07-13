@@ -19,7 +19,7 @@ namespace Autorotation_maneuver
                                                     .Color
                                                         .FromArgb(155, 0, 0, 0));
             _caption =
-                "0.000";
+                "0";
 
 
             var textElement =
@@ -52,11 +52,6 @@ namespace Autorotation_maneuver
             };
         }
 
-        private void Finish()
-        {
-
-        }
-
         private void Start()
         {
             var player =
@@ -82,7 +77,8 @@ namespace Autorotation_maneuver
 
                         _caption =
                             (vehiclePlayer
-                                .HeliBladesSpeed * 100f).ToString("N0");
+                                .HeliBladesSpeed * 100f)
+                                                    .ToString("N0");
 
                         if (isEngineRunning)
                         {
@@ -138,7 +134,7 @@ namespace Autorotation_maneuver
                                                         .Speed;
 
                                             vehiclePlayer
-                                                .HeliBladesSpeed += 0.00150f * (vehicleSpeed / 25.0f);
+                                                .HeliBladesSpeed += 0.00150f * (vehicleSpeed / 50.0f);
                                         }
                                         return;
                                 }
@@ -161,6 +157,10 @@ namespace Autorotation_maneuver
                     }
                     return;
             }
+        }
+        private void Finish()
+        {
+
         }
     }
 }
