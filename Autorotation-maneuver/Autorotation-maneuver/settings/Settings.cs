@@ -24,7 +24,7 @@ namespace Autorotation_maneuver.settings
                 ScriptSettings
                     .Load(PathToTheAutorotationManeuverFolder
                             +
-                          @"\UserInterfaceResources\DisplayCompatibility");
+                          @"\UserInterfaceResources\DisplayCompatibility.ini");
 
             var aspectRatio =
                 Screen
