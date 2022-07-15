@@ -23,8 +23,8 @@ namespace Dynamic_hiding_of_minimap
                         .Character;
 
             var isInVehicle =
-                    character
-                        .IsSittingInVehicle();
+                character
+                    .IsSittingInVehicle();
 
 
             switch (isInVehicle)
