@@ -36,7 +36,7 @@ namespace Autorotation_maneuver.user_interface.creators
 
             var color
                 = settings
-                    .ReturnTheColorOfThisSection(section: "Container Element");
+                    .ReturnTheColorOfThis(section: "Container Element");
 
             return _ 
                    = new ContainerElement(position: offsetPosition,

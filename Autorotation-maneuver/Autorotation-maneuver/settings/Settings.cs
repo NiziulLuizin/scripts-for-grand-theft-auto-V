@@ -113,7 +113,7 @@ namespace Autorotation_maneuver.settings
 
             return _
                    = new PointF(x: positionOfCenterOfScreen
-                                                       .X,
+                                                         .X,
                                 y: 680f);
         }
         
@@ -146,7 +146,7 @@ namespace Autorotation_maneuver.settings
             
         }
         
-        internal Color ReturnTheColorOfThisSection(string section)
+        internal Color ReturnTheColorOfThis(string section)
         {
             var behaviorOfUserInterfaceElementsFile
                 = ScriptSettings

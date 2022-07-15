@@ -24,7 +24,7 @@ namespace Autorotation_maneuver.user_interface.creators
 
             var color
                 = settings
-                    .ReturnTheColorOfThisSection(section: "Custom Sprite");
+                    .ReturnTheColorOfThis(section: "Custom Sprite");
 
             return _
                    = new CustomSprite(filename: settings
