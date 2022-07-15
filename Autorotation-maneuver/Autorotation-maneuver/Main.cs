@@ -32,6 +32,7 @@ namespace Autorotation_maneuver
             var customSprite =
                 new CustomSprite($"{GetRelativeFilePath("AutorotationManeuver\\UserInterfaceResources\\CustomSprite\\DefaultLayout.png")}", new System.Drawing.SizeF(400f / 3f, 152f / 3f), new System.Drawing.PointF(20f, 650f), System.Drawing.Color.FromArgb(255, 255, 0, 0));
 
+
             Tick += (o, e) =>
             {
                 Start();
@@ -114,13 +115,7 @@ namespace Autorotation_maneuver
                                         &&
                                     !controlVehicleFlyThrottleDownIsPressed)
                                 {
-                                    var vehicleSpeed =
-                                            vehiclePlayer
-                                                    .Speed;
-
-                                    vehiclePlayer
-                                        .HeliBladesSpeed += 0.00050f * (vehicleSpeed / 10.0f);
-
+                                    IncreaseRotationOfHelicopterBladesBasedOn(value: 0.00050f);
                                     return;
                                 }
 
@@ -129,12 +124,7 @@ namespace Autorotation_maneuver
                                 {
                                     case true:
                                         {
-                                            var vehicleSpeed =
-                                                vehiclePlayer
-                                                        .Speed;
-
-                                            vehiclePlayer
-                                                .HeliBladesSpeed += 0.00150f * (vehicleSpeed / 50.0f);
+                                            IncreaseRotationOfHelicopterBladesBasedOn(value: 0.00100f);
                                         }
                                         return;
                                 }
@@ -143,12 +133,7 @@ namespace Autorotation_maneuver
                                 {
                                     case true:
                                         {
-                                            var vehicleSpeed =
-                                                vehiclePlayer
-                                                        .Speed;
-
-                                            vehiclePlayer
-                                                .HeliBladesSpeed += 0.00100f * (vehicleSpeed / 10.0f);
+                                            IncreaseRotationOfHelicopterBladesBasedOn(value: 0.00100f);
                                         }
                                         return;
                                 }
@@ -161,6 +146,33 @@ namespace Autorotation_maneuver
         private void Finish()
         {
 
+        }
+    
+        private void IncreaseRotationOfHelicopterBladesBasedOn(float value)
+        {
+            var playerCharacter =
+                Game
+                    .Player
+                        .Character;
+
+            var vehiclePlayer =
+                playerCharacter
+                    .CurrentVehicle;
+
+            var vehicleSpeed =
+                vehiclePlayer
+                    .Speed;
+
+            var verticalSpeed =
+                vehiclePlayer
+                    .Velocity
+                            .Z;
+
+            var isTheHelicopterGainingAltitude =
+                verticalSpeed > 1.35f;
+
+            vehiclePlayer
+                .HeliBladesSpeed += value - (isTheHelicopterGainingAltitude ? verticalSpeed / (vehicleSpeed * 5000) : verticalSpeed / 5000f);
         }
     }
 }
