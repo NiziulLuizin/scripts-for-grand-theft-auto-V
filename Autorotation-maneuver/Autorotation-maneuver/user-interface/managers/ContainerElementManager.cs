@@ -7,10 +7,10 @@ namespace Autorotation_maneuver.user_interface.managers
 {
     internal sealed class ContainerElementManager : ContainerElementCreator
     {
-        internal void ReturnContainerElement()
+        internal ContainerElement ReturnContainerElement()
         {
-            Notification
-                .Show($"~y~Container Element Create~w~!", true);
+            return _
+                   = ReturnAnAlreadyConfiguredContainer();
         }
     }
 }

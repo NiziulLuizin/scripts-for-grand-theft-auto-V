@@ -36,9 +36,7 @@
       <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\ScriptHookVDotNet3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
@@ -50,11 +48,11 @@
     <Compile Include="user-interface\creators\CustomSpriteCreator.cs" />
     <Compile Include="user-interface\creators\TextElementCreator.cs" />
     <Compile Include="user-interface\HelicopterBladesSpeed.cs" />
+    <Compile Include="user-interface\Elements.cs" />
     <Compile Include="user-interface\managers\ContainerElementManager.cs" />
     <Compile Include="user-interface\managers\CustomSpriteManager.cs" />
     <Compile Include="user-interface\managers\TextElementManager.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(ProjectDir)\bin\Debug\Autorotation-maneuver.dll" /y "C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\scripts"</PostBuildEvent>

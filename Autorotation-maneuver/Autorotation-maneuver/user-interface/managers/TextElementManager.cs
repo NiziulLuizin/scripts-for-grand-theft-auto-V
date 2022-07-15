@@ -7,10 +7,10 @@ namespace Autorotation_maneuver.user_interface.managers
 {
     internal sealed class TextElementManager : TextElementCreator
     {
-        internal void ReturnTextElement()
+        internal TextElement ReturnTextElement()
         {
-            Notification
-                .Show($"~y~Text Element Create~w~!", true);
+            return _
+                   = ReturnAnAlreadyConfiguredTextElement();
         }
     }
 }

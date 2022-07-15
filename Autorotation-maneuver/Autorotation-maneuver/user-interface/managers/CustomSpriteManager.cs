@@ -7,10 +7,10 @@ namespace Autorotation_maneuver.user_interface.managers
 {
     internal sealed class CustomSpriteManager : CustomSpriteCreator
     {
-        internal void ReturnCustomSprite()
+        internal CustomSprite ReturnCustomSprite()
         {
-            Notification
-                .Show($"~y~Custom Sprite Create~w~!", true);
+            return _
+                   = ReturnAnAlreadyConfiguredCustomSprite();
         }
     }
 }

@@ -1,85 +1,55 @@
 ﻿using GTA;
-using GTA.UI;
 
 
 namespace Autorotation_maneuver
 {
     internal sealed class Main : Script
     {
-        private string _caption;
-
         public Main()
         {
-            var containerElement =
-                new ContainerElement(new System.Drawing
-                                                    .PointF(20f, 671.5f), 
-                                     new System.Drawing
-                                                    .SizeF(400f / 3f, 27f),
-                                     System.Drawing
-                                                    .Color
-                                                        .FromArgb(155, 0, 0, 0));
-            _caption =
-                "0";
-
-
-            var textElement =
-                new TextElement(_caption, new System.Drawing.PointF((400f / 3f) / 2f, 5f), 0.35f, System.Drawing.Color.White, Font.HouseScript, Alignment.Center, true, false);
-
-            containerElement
-                    .Items
-                        .Insert(0, textElement);
-
-            var customSprite =
-                new CustomSprite($"{GetRelativeFilePath("AutorotationManeuver\\UserInterfaceResources\\CustomSprite\\DefaultLayout.png")}", new System.Drawing.SizeF(400f / 3f, 152f / 3f), new System.Drawing.PointF(20f, 650f), System.Drawing.Color.FromArgb(255, 255, 0, 0));
-
+            var isInLoading
+                = Game
+                    .IsLoading;
 
             Tick += (o, e) =>
             {
-                Start();
+                if (isInLoading)
+                {
+                    isInLoading
+                    = Game
+                        .IsLoading;
 
-                textElement
-                    .Caption = _caption;
-
-                containerElement
-                    .ScaledDraw();
-
-                customSprite
-                    .ScaledDraw();
-            };
-
-            Aborted += (o, e) =>
-            {
-                Finish();
+                    return;
+                }
+                else
+                {
+                    Start();
+                }
             };
         }
 
         private void Start()
         {
-            var player =
-                Game
+            var player 
+                = Game
                     .Player
                         .Character;
 
-            var playerIsInVehicleWithRotatingWings =
-                player
+            var playerIsInVehicleWithRotatingWings 
+                = player
                     .IsInHeli;
 
             switch (playerIsInVehicleWithRotatingWings)
             {
                 case true:
                     {
-                        var vehiclePlayer =
-                            player
+                        var vehiclePlayer 
+                            = player
                                 .CurrentVehicle;
 
-                        var isEngineRunning =
-                            vehiclePlayer
+                        var isEngineRunning 
+                            = vehiclePlayer
                                 .IsEngineRunning;
-
-                        _caption =
-                            (vehiclePlayer
-                                .HeliBladesSpeed * 100f)
-                                                    .ToString("N0");
 
                         if (isEngineRunning)
                         {
@@ -87,12 +57,12 @@ namespace Autorotation_maneuver
                         }
                         else
                         {
-                            var heliBladesSpeed =
-                                vehiclePlayer
+                            var heliBladesSpeed 
+                                = vehiclePlayer
                                     .HeliBladesSpeed;
 
-                            var isTheHelicopterInFlight =
-                                vehiclePlayer
+                            var isTheHelicopterInFlight 
+                                = vehiclePlayer
                                     .IsInAir;
 
 
@@ -100,13 +70,13 @@ namespace Autorotation_maneuver
                                     &&
                                 heliBladesSpeed < 1.35f)
                             {
-                                var controlVehicleFlyThrottleUpIsPressed =
-                                    Game
+                                var controlVehicleFlyThrottleUpIsPressed 
+                                    = Game
                                         .IsControlPressed(Control
                                                             .VehicleFlyThrottleUp);
 
-                                var controlVehicleFlyThrottleDownIsPressed =
-                                    Game
+                                var controlVehicleFlyThrottleDownIsPressed 
+                                    = Game
                                         .IsControlPressed(Control
                                                             .VehicleFlyThrottleDown);
 
@@ -143,33 +113,29 @@ namespace Autorotation_maneuver
                     return;
             }
         }
-        private void Finish()
-        {
-
-        }
     
         private void IncreaseRotationOfHelicopterBladesBasedOn(float value)
         {
-            var playerCharacter =
-                Game
+            var playerCharacter 
+                = Game
                     .Player
                         .Character;
 
-            var vehiclePlayer =
-                playerCharacter
+            var vehiclePlayer 
+                = playerCharacter
                     .CurrentVehicle;
 
-            var vehicleSpeed =
-                vehiclePlayer
+            var vehicleSpeed 
+                = vehiclePlayer
                     .Speed;
 
-            var verticalSpeed =
-                vehiclePlayer
+            var verticalSpeed 
+                = vehiclePlayer
                     .Velocity
                             .Z;
 
-            var isTheHelicopterGainingAltitude =
-                verticalSpeed > 1.35f;
+            var isTheHelicopterGainingAltitude 
+                = verticalSpeed > 1.35f;
 
             vehiclePlayer
                 .HeliBladesSpeed += value - (isTheHelicopterGainingAltitude ? verticalSpeed / (vehicleSpeed * 5000) : verticalSpeed / 5000f);
