@@ -48,7 +48,7 @@ namespace Dynamic_hiding_of_minimap
                             Hud
                                 .IsRadarVisible;
 
-                        if (minimapVisibility)
+                        if (!minimapVisibility)
                             return;
                         else
                             Hud
