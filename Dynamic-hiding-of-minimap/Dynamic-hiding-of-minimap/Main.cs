@@ -22,12 +22,12 @@ namespace Dynamic_hiding_of_minimap
                     .Player
                         .Character;
 
-            var isInVehicle =
+            var isSittingInVehicle =
                 character
                     .IsSittingInVehicle();
 
 
-            switch (isInVehicle)
+            switch (isSittingInVehicle)
             {
                 case true:
                     {
