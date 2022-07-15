@@ -31,31 +31,36 @@ namespace Dynamic_hiding_of_minimap
             {
                 case true:
                     {
-                        var minimapVisibility =
-                            Hud
-                                .IsRadarVisible;
-
-                        if (minimapVisibility)
-                            return;
-                        else
-                            Hud
-                                .IsRadarVisible = true;
+                        ShowMinimap();
                     }
                     break;
                 case false:
                     {
-                        var minimapVisibility =
-                            Hud
-                                .IsRadarVisible;
-
-                        if (!minimapVisibility)
-                            return;
-                        else
-                            Hud
-                                .IsRadarVisible = false;
+                        HideMinimap();
                     }
                     break;
             }
+        }
+
+        private void HideMinimap()
+        {
+            MinimapaVisibility(status: false);
+        }
+        private void ShowMinimap()
+        {
+            MinimapaVisibility(status: true);
+        }
+        private void MinimapaVisibility(bool status)
+        {
+            var minimapVisibility =
+                Hud
+                    .IsRadarVisible;
+
+            if (minimapVisibility == status)
+                return;
+            else
+                Hud
+                    .IsRadarVisible = status;
         }
     }
 }
