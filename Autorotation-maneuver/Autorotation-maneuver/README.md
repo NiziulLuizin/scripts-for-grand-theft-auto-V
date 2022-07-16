@@ -24,3 +24,7 @@ Extract from the .rar file the Autorotation-maneuver.dll file and the folder nam
 <b>Changelog</b>
 - v0.1.0.0:
    initial release.
+
+<b>Download</b>
+
+accessing the mod <a href="https://www.gta5-mods.com/scripts/autorotation-maneuver#description_tab">page</a> on the gta5-mods website.
