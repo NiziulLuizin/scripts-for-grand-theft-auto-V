@@ -29,7 +29,7 @@ namespace Autorotation_maneuver.user_interface.creators
 
             var color
                 = settings
-                    .ReturnTheColorOfThis(section: "Text Element");
+                    .ReturnTheColorOf("Text Element");
 
             return _ 
                    = new TextElement(caption : "0",

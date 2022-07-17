@@ -146,7 +146,7 @@ namespace Autorotation_maneuver.settings
             
         }
         
-        internal Color ReturnTheColorOfThis(string section)
+        internal Color ReturnTheColorOf(string section)
         {
             var behaviorOfUserInterfaceElementsFile
                 = ScriptSettings
