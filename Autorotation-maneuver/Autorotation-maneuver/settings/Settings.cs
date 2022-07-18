@@ -1,9 +1,10 @@
 ﻿using GTA;
 using GTA.UI;
 
+using System;
 using System.IO;
 using System.Drawing;
-using System;
+
 
 namespace Autorotation_maneuver.settings
 {
@@ -75,7 +76,10 @@ namespace Autorotation_maneuver.settings
             if (value != null)
             {
                 if (value == "On")
-                    interfaceVisibility = true;
+                {
+                    interfaceVisibility 
+                    = true;
+                }
             }
 
             return interfaceVisibility;

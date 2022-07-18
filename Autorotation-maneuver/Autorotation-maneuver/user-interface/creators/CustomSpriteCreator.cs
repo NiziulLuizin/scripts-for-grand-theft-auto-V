@@ -1,7 +1,5 @@
 ﻿using GTA.UI;
 
-using System.Drawing;
-
 using Autorotation_maneuver.settings;
 
 
@@ -33,8 +31,8 @@ namespace Autorotation_maneuver.user_interface.creators
                                       position: customPosition,
                                       color   : color)
                      {
-                         Centered = 
-                            true
+                         Centered
+                         = true
                      };
         }
     }
