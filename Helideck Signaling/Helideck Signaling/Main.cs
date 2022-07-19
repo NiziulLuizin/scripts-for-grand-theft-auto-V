@@ -13,19 +13,20 @@ namespace Helideck_Signaling
         
         private Ped _player;
 
-
+        private GTA.UI.TextElement _textElement;
         public Main()
         {
-            _areThereBlipsOnTheMap =
-                false;
+            _blipCreator 
+                = new BlipCreator();
             
-            _player =
-                Game
+            _areThereBlipsOnTheMap 
+                = false;
+            
+            _player 
+                = Game
                     .Player
                         .Character;
 
-            _blipCreator =
-                new BlipCreator();
 
             Tick    += (o, e) =>
             { Start(); };
@@ -40,46 +41,11 @@ namespace Helideck_Signaling
                 _player
                     .IsInHeli;
 
-            if (Game.IsControlJustPressed(Control.EnterCheatCode))
-                Game.TimeScale = 0.10f;
-
-            if (Game.IsControlJustPressed(Control.FrontendAccept))
-                Game.TimeScale = 1.0f;
-
-            if (Game.WasCheatStringJustEntered("HelicopterEngineOff(){}"))
-                GTA.Native.Function.Call(GTA.Native.Hash.SET_VEHICLE_ENGINE_ON, _player.CurrentVehicle, false, false, true);
-            if (Game.WasCheatStringJustEntered("HelicopterEngineOn(){}"))
-                GTA.Native.Function.Call(GTA.Native.Hash.SET_VEHICLE_ENGINE_ON, _player.CurrentVehicle, true, false, true);
-
-            if (Game.WasCheatStringJustEntered("HelicopterLightsOff(){}"))
-                _player.CurrentVehicle.AreLightsOn = false;
-            if (Game.WasCheatStringJustEntered("HelicopterLightsOn(){}"))
-                _player.CurrentVehicle.AreLightsOn = true;
-
-            if (Game.WasCheatStringJustEntered("HelicopterNightVisionOff(){}"))
-            {
-                Game.IsNightVisionActive = false;
-
-                GTA.Native.Function.Call(GTA.Native.Hash.SEETHROUGH_RESET);
-                //GTA.Native.Function.Call(GTA.Native.Hash._SEETHROUGH_SET_HI_LIGHT_INTENSITY, 0f);
-
-            }
-
-            if (Game.WasCheatStringJustEntered("HelicopterNightVisionOn(){}"))
-            {
-                Game.IsNightVisionActive = true;
-
-                GTA.Native.Function.Call(GTA.Native.Hash._SEETHROUGH_SET_MAX_THICKNESS, 50f);
-                GTA.Native.Function.Call(GTA.Native.Hash._SEETHROUGH_SET_HI_LIGHT_INTENSITY, 0.2f);
-                GTA.Native.Function.Call(GTA.Native.Hash._SEETHROUGH_SET_FADE_END_DISTANCE, 5000f);
-            }
-
-
             switch (playerIsInVehicleWithRotatingWings)
             {
                 case true:
                     {
-                        BlipBehaviors();
+                        BlipBehaviors();        
                     }
                     return;
                 case false:

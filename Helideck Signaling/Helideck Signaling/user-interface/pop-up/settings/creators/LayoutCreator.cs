@@ -142,12 +142,12 @@ namespace Helideck_Signaling.user_interface.pop_up.settings.creators
 
                         DisableAllSprites();
 
-                        EnableThis(spriteIndex: 0);
-                        EnableThis(spriteIndex: 2);
-                        EnableThis(spriteIndex: 4);
-                        EnableThis(spriteIndex: 6);
-                        EnableThis(spriteIndex: 7);
-                        EnableThis(spriteIndex: 8);
+                        EnableThisSpriteInThis(index: 0);
+                        EnableThisSpriteInThis(index: 2);
+                        EnableThisSpriteInThis(index: 4);
+                        EnableThisSpriteInThis(index: 6);
+                        EnableThisSpriteInThis(index: 7);
+                        EnableThisSpriteInThis(index: 8);
                     }
                     break;
                 case LayoutGroups
@@ -183,6 +183,9 @@ namespace Helideck_Signaling.user_interface.pop_up.settings.creators
                             sprite
                                 .Position = new PointF(position.X,
                                                        _positionForTheNextLayoutGroup.Y);
+
+                            sprite
+                                .Centered = false;
                         }
                     }
                     break;
@@ -216,20 +219,20 @@ namespace Helideck_Signaling.user_interface.pop_up.settings.creators
 
         public void EnableAllSprites()
         {
-            EnableThis();
+            EnableAllSpritesInTheList();
         }
-        private void EnableThis()
+        private void EnableAllSpritesInTheList()
         {
             for (var i = (byte)0; i < _spriteList.Count; i++)
-                EnableThis(spriteIndex: i);
+                EnableThisSpriteInThis(index: i);
         }
-        internal void EnableThis(byte spriteIndex)
+        internal void EnableThisSpriteInThis(byte index)
         {
-            if (spriteIndex > _spriteList.Count)
+            if (index > _spriteList.Count)
                 return;
 
             var sprite =
-                _spriteList[spriteIndex];
+                _spriteList[index];
 
             sprite
                 .Enabled = true;
@@ -238,22 +241,22 @@ namespace Helideck_Signaling.user_interface.pop_up.settings.creators
 
         public void DisableAllSprites()
         {
-            DisableThis();
+            DisableAllSpritesInTheList();
         }
-        private void DisableThis()
+        private void DisableAllSpritesInTheList()
         {
             for (var i = (byte)0; i < _spriteList.Count; i++)
             {
-                DisableThis(spriteIndex: i);
+                DisableThisSpriteInThis(index: i);
             }
         }
-        internal void DisableThis(byte spriteIndex)
+        internal void DisableThisSpriteInThis(byte index)
         {
-            if (spriteIndex > _spriteList.Count)
+            if (index > _spriteList.Count)
                 return;
 
             var sprite =
-                _spriteList[spriteIndex];
+                _spriteList[index];
 
             sprite
                 .Enabled = false;

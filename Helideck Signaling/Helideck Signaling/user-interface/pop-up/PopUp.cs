@@ -141,7 +141,7 @@ namespace Helideck_Signaling.user_interface.pop_up
                     case System.Windows.Forms.Keys
                                                   .Down:
                         {
-                            if (layoutsGroupBody.Count > 0)
+                            if (layoutsGroupBody.Count != 0)
                             {
                                 ConfigureAsNotSelectedThis((byte)(indexT), layoutsGroupBody);
 
@@ -157,7 +157,7 @@ namespace Helideck_Signaling.user_interface.pop_up
                     case System.Windows.Forms.Keys
                                                   .Up:
                         {
-                            if (layoutsGroupBody.Count > 0)
+                            if (layoutsGroupBody.Count != 0)
                             {
                                 ConfigureAsNotSelectedThis((byte)(indexT), layoutsGroupBody);
 
@@ -182,18 +182,18 @@ namespace Helideck_Signaling.user_interface.pop_up
         private void ConfigureAsSelectedThis(byte element, IList<LayoutCreator> layout)
         {
             layout[element]
-                .DisableThis(spriteIndex: 2);
+                .DisableThisSpriteInThis(index: 2);
 
             layout[element]
-                .EnableThis(spriteIndex: 1);
+                .EnableThisSpriteInThis(index: 1);
         }
         private void ConfigureAsNotSelectedThis(byte element, IList<LayoutCreator> layout)
         {
             layout[element]
-                .DisableThis(spriteIndex: 1);
+                .DisableThisSpriteInThis(index: 1);
 
             layout[element]
-                .EnableThis(spriteIndex: 2);
+                .EnableThisSpriteInThis(index: 2);
         }
     }
 }
