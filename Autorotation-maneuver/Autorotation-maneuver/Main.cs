@@ -103,7 +103,7 @@ namespace Autorotation_maneuver
                                 {
                                     case true:
                                         {
-                                            IncreaseRotationOfHelicopterBladesBasedOn(value: 0.00100f);
+                                            IncreaseRotationOfHelicopterBladesBasedOn(value: 0.00025f);
                                         }
                                         return;
                                 }

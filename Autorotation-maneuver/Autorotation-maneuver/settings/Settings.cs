@@ -73,13 +73,12 @@ namespace Autorotation_maneuver.settings
                     .GetAllValues<string>(section,
                                           key)[0];
 
-            if (value != null)
+            if (value != null 
+                &&
+                value == "On")
             {
-                if (value == "On")
-                {
-                    interfaceVisibility 
-                    = true;
-                }
+                interfaceVisibility
+                = true;
             }
 
             return interfaceVisibility;
