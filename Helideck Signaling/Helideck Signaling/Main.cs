@@ -13,7 +13,7 @@ namespace Helideck_Signaling
         
         private Ped _player;
 
-        private GTA.UI.TextElement _textElement;
+
         public Main()
         {
             _blipCreator 
