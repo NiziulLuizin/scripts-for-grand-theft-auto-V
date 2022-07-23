@@ -127,13 +127,8 @@ namespace Autorotation_maneuver
     
         private void IncreaseRotationOfHelicopterBladesBasedOn(float value)
         {
-            var playerCharacter 
-                = Game
-                    .Player
-                        .Character;
-
             var vehiclePlayer 
-                = playerCharacter
+                = _player
                     .CurrentVehicle;
 
             var vehicleSpeed 
