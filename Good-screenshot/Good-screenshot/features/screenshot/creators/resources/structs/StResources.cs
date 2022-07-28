@@ -8,7 +8,7 @@ using GTAScreen
 
 namespace Good_screenshot.features.screenshot.creators.resources.structs
 {
-    struct StResources
+    internal struct StResources
     {
         internal Screen MainScreen
         { 

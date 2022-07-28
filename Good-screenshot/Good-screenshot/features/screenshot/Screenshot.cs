@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GTA.UI;
+
+using System;
 
 using System.Drawing;
 
@@ -65,10 +67,6 @@ namespace Good_screenshot.features.screenshot
 
         private void RecordTheScreenshotInThis(Bitmap bitmap)
         {
-            var graphic
-                = _graphicManager
-                        .ReturnAnGraphicOfThis(bitmap);
-
             var stResources
                 = new StResources();
 
@@ -79,6 +77,10 @@ namespace Good_screenshot.features.screenshot
             var bounds
                 = mainScreen
                         .Bounds;
+
+            var graphic
+                = _graphicManager
+                        .ReturnAnGraphicOfThis(bitmap);
 
             graphic
                 .CopyFromScreen(sourceX        : bounds
@@ -106,11 +108,20 @@ namespace Good_screenshot.features.screenshot
             {
                 index++;
 
+                var currentScreenshot
+                    = $"Screenshot - {index}";
+
+                LoadingPrompt
+                    .Show($"Save: {currentScreenshot}");
+
                 screenshot
-                    .Save(path + $"Screenshot - {index}.png");
-                
+                    .Save($"{path}{currentScreenshot}.png");
+
                 Main
                     .Wait(5000);
+
+                LoadingPrompt
+                    .Hide();
             }
         }
 
