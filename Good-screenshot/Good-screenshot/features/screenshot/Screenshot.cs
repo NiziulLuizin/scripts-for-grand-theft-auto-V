@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+
+using System.Drawing;
 
 using System.Collections.Generic;
 
@@ -6,16 +8,21 @@ using Good_screenshot.features.screenshot.managers;
 
 using Good_screenshot.features.screenshot.creators.resources.structs;
 
+using Good_screenshot.features.screenshot.creators.resources.enumerators;
+
 
 namespace Good_screenshot.features.screenshot
 {
-    internal class Screenshot
+    internal class Screenshot : IDisposable
     {
         private readonly IList<Bitmap> _screenshots;
         
-        private readonly BitmapManager _bitmapaManager;
+        private readonly BitmapManager _bitmapManager;
 
-        private readonly GraphicsManager _graphicsManager;
+        private readonly GraphicManager _graphicManager;
+
+
+        private bool disposedValue;
 
 
         public Screenshot()
@@ -23,32 +30,45 @@ namespace Good_screenshot.features.screenshot
             _screenshots 
             = new List<Bitmap>();
             
-            _bitmapaManager 
+            _bitmapManager 
             = new BitmapManager();
             
-            _graphicsManager 
-            = new GraphicsManager();
+            _graphicManager 
+            = new GraphicManager();
         }
 
+        ~Screenshot()
+        {
+            Dispose(disposing: false);
+        }
 
+        internal void MakeAnSequenceOfScreenshots(byte amount, int interval = 100)
+        {
+            for (var i = 0; i < amount; i++)
+            {
+                MakeAnScreenshot();
+
+                Main
+                    .Wait(interval);
+            }
+        }
+        
         internal void MakeAnScreenshot()
         {
             var bitmap
-                = _bitmapaManager
-                        .ReturnAnBitmapWihtThis();
+                = _bitmapManager
+                        .ReturnAnBitmapWihtThis(EPixelFormat
+                                                    .Format32bppRgb);
 
-            var graphics
-                = _graphicsManager
+            RecordTheScreenshotInThis(bitmap);
+        }
+
+        private void RecordTheScreenshotInThis(Bitmap bitmap)
+        {
+            var graphic
+                = _graphicManager
                         .ReturnAnGraphicOfThis(bitmap);
 
-            RecordTheScreenshotInThis(graphics);
-
-            _screenshots
-                .Add(bitmap);
-        }
-        
-        private void RecordTheScreenshotInThis(Graphics graphic)
-        {
             var stResources
                 = new StResources();
 
@@ -61,14 +81,20 @@ namespace Good_screenshot.features.screenshot
                         .Bounds;
 
             graphic
-                .CopyFromScreen(bounds.Left,
-                                bounds.Top,
-                                0,
-                                0,
-                                bounds.Size);
+                .CopyFromScreen(sourceX        : bounds
+                                                    .Left,
+                                sourceY        : bounds
+                                                    .Top,
+                                destinationX   : 0,
+                                destinationY   : 0,
+                                blockRegionSize: bounds
+                                                    .Size);
 
             graphic
                 .Dispose();
+
+            _screenshots
+                .Add(bitmap);
         }
         
         internal void SaveAllScreenshotsInThis(string path)
@@ -78,29 +104,44 @@ namespace Good_screenshot.features.screenshot
 
             foreach (var screenshot in _screenshots)
             {
-                index ++;
+                index++;
 
                 screenshot
                     .Save(path + $"Screenshot - {index}.png");
-
+                
                 Main
-                    .Yield();
+                    .Wait(5000);
             }
         }
-        
-        internal void Dispose()
-        {
-            if (_screenshots != null)
-            {
-                foreach (var screenshot in _screenshots)
-                {
-                    screenshot
-                        .Dispose();
-                }
-            }
 
-            _screenshots
-                .Clear();
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    if (_screenshots != null)
+                    {
+                        foreach (var screenshot in _screenshots)
+                        {
+                            screenshot
+                                .Dispose();
+                        }
+                        
+                        _screenshots
+                            .Clear();
+                    }
+                }
+
+                disposedValue 
+                = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

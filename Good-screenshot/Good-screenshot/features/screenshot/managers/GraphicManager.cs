@@ -5,7 +5,7 @@ using Good_screenshot.features.screenshot.creators;
 
 namespace Good_screenshot.features.screenshot.managers
 {
-    internal class GraphicsManager : GraphicsCreator
+    internal class GraphicManager : GraphicsCreator
     {
         internal Graphics ReturnAnGraphicOfThis(Image image)
         {

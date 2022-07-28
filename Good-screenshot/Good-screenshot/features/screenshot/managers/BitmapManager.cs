@@ -9,7 +9,7 @@ namespace Good_screenshot.features.screenshot.managers
 {
     internal class BitmapManager : BitmapCreator
     {
-        internal Bitmap ReturnAnBitmapWihtThis(EPixelFormat ePixelFormat = EPixelFormat.Format32bppRgb)
+        internal Bitmap ReturnAnBitmapWihtThis(EPixelFormat ePixelFormat)
         {
             return _
                    =

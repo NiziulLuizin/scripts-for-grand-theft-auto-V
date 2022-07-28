@@ -1,9 +1,5 @@
 ﻿using GTA;
 
-using GTA.UI;
-
-using System.Drawing;
-
 using System.Windows.Forms;
 
 using Good_screenshot.settings;
@@ -20,42 +16,38 @@ namespace Good_screenshot
             var settings
                 = new Settings();
 
-            var screenshot
-                = new Screenshot();
-
             Tick += (o, e) =>
             {
+                if (Game.WasCheatStringJustEntered("ScreenshotSequence();"))
+                {
+                    using (var screenshot = new Screenshot())
+                    {
+                        Main.Yield();
 
+                        screenshot
+                            .MakeAnSequenceOfScreenshots(amount  : 5, 
+                                                         interval: 5000);
+
+                        Main.Yield();
+
+                        screenshot
+                            .SaveAllScreenshotsInThis(settings
+                                                            .PathToTheFolderGoodScreenshot);
+
+                        Main.Yield();
+                    }
+                    
+                    
+                    GTA.UI.Notification.Show("~g~all screenshots were saved successfully~w~!");
+                }
             };
 
             KeyUp += (o, e) =>
             {
-                switch (e.KeyData)
-                {
-                    case Keys.D0:
-                        {
-                            screenshot
-                                .MakeAnScreenshot();
-
-                            Yield();
-                        }
-                        break;
-                    case Keys.D9:
-                        {
-                            screenshot
-                                .SaveAllScreenshotsInThis(settings.PathToTheFolderGoodScreenshot);
-
-                            screenshot
-                                .Dispose();
-                        }
-                        break;
-                }
             };
 
             Aborted += (o, e) =>
             {
-                screenshot
-                    .Dispose();
             };
         }
     }
