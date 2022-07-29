@@ -24,9 +24,6 @@ namespace Good_screenshot.features.screenshot
         private readonly GraphicManager _graphicManager;
 
 
-        private bool disposedValue;
-
-
         public Screenshot()
         {
             _screenshots 
@@ -37,11 +34,6 @@ namespace Good_screenshot.features.screenshot
             
             _graphicManager 
             = new GraphicManager();
-        }
-
-        ~Screenshot()
-        {
-            Dispose(disposing: false);
         }
 
         internal void MakeAnSequenceOfScreenshots(byte amount, int interval = 100)
@@ -127,25 +119,23 @@ namespace Good_screenshot.features.screenshot
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!disposing)
             {
-                if (disposing)
+                return;
+            }
+            else
+            {
+                if (_screenshots != null)
                 {
-                    if (_screenshots != null)
+                    foreach (var screenshot in _screenshots)
                     {
-                        foreach (var screenshot in _screenshots)
-                        {
-                            screenshot
-                                .Dispose();
-                        }
-                        
-                        _screenshots
-                            .Clear();
+                        screenshot
+                            .Dispose();
                     }
-                }
 
-                disposedValue 
-                = true;
+                    _screenshots
+                        .Clear();
+                }
             }
         }
 

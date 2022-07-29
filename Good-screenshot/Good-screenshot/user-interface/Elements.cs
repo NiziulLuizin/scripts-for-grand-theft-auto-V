@@ -1,61 +1,28 @@
-﻿using Good_screenshot.user_interface.managers;
-using GTA.UI;
-using System.Drawing;
-using Good_screenshot.user_interface.creators.resources.structs;
+﻿using GTA.UI;
+
+using System.Collections.Generic;
+
+
 namespace Good_screenshot.user_interface
 {
     internal sealed class Elements
     {
-        private readonly TextElement _textElement;
-
-        private readonly CustomSprite _customSprite;
-
-        private readonly ContainerElement _containerElement;
+        private readonly IEnumerable<IElement> _elements;
 
 
-        public Elements(CustomSprite customSprite, ContainerElement containerElement, TextElement textElement)
+        public Elements(IEnumerable<IElement> elements)
         {
-            var containerManager
-                = new ContainerElementManager();
-
-            containerManager
-                .ReturnAnContainerElementWithThis(
-                    new StContainerElementConfiguration() 
-                    { 
-                        Color 
-                        = Color.Black, 
-                        
-                        Position 
-                        = new Point(), 
-                        
-                        Size 
-                        = new Size() 
-                    });
-
-            _textElement 
-                = textElement;
-            
-            _customSprite 
-                = customSprite;
-
-            _containerElement 
-                = containerElement;
+            _elements
+                = elements;
         }
-        
-        internal void ScaledDraw(string textElementCaption)
+
+        internal void ScaledDraw()
         {
-            _containerElement
-                .ScaledDraw();
-
-            _textElement
-                .Caption 
-                 = textElementCaption;
-
-            _textElement
-                .ScaledDraw();
-
-            _customSprite
-                .ScaledDraw();
+            foreach (var element in _elements)
+            {
+                element
+                    .ScaledDraw();
+            }
         }
     }
 }
