@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
 
-using Good_screenshot.user_interface.creators.resources.interfaces;
+using Good_screenshot.user_interfaces.creators.resources.interfaces;
 
 
-namespace Good_screenshot.user_interface.creators.resources.structs
+namespace Good_screenshot.user_interfaces.creators.resources.structs
 {
     internal struct StTextElementConfiguration : IConfiguration
     {

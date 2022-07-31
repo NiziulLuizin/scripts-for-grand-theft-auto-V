@@ -1,11 +1,11 @@
 ﻿using GTA.UI;
 
-using Good_screenshot.user_interface.creators;
+using Good_screenshot.user_interfaces.creators;
 
-using Good_screenshot.user_interface.creators.resources.structs;
+using Good_screenshot.user_interfaces.creators.resources.structs;
 
 
-namespace Good_screenshot.user_interface.managers
+namespace Good_screenshot.user_interfaces.managers
 {
     internal sealed class CustomSpriteManager : CustomSpriteCreator
     {

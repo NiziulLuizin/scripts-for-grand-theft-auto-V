@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Good_screenshot.user_interface.creators.resources.interfaces
+namespace Good_screenshot.user_interfaces.creators.resources.interfaces
 {
     internal interface IConfiguration
     {
