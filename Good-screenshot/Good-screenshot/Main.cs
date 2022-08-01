@@ -1,7 +1,5 @@
 ﻿using GTA;
 
-using System.Windows.Forms;
-
 using Good_screenshot.settings;
 
 using Good_screenshot.features.screenshot;
@@ -17,18 +15,24 @@ namespace Good_screenshot
                 = new Settings();
             
 
-            Tick += (o, e) =>
+            Tick    += (o, e) =>
             {
                 if (Game.WasCheatStringJustEntered("ScreenshotSequence();"))
                 {
-                    using (var screenshot = new Screenshot())
+                    using (var screenshot 
+                               = new Screenshot())
                     {
                         Main
                             .Yield();
 
-                        screenshot
-                            .MakeAnSequenceOfScreenshots(amount  : 5, 
-                                                         interval: 5000);
+                        for (var i = 0; i < 5; i++)
+                        {
+                            screenshot
+                                .MakeAnScreenshot();
+
+                            Main
+                                .Wait(5000);
+                        }
 
                         Main
                             .Yield();
@@ -45,7 +49,7 @@ namespace Good_screenshot
                 }
             };
 
-            KeyUp += (o, e) =>
+            KeyUp   += (o, e) =>
             {
             };
 

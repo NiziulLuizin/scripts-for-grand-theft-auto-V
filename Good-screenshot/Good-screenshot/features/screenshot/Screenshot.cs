@@ -35,17 +35,6 @@ namespace Good_screenshot.features.screenshot
             _graphicManager 
             = new GraphicManager();
         }
-
-        internal void MakeAnSequenceOfScreenshots(byte amount, int interval = 100)
-        {
-            for (var i = 0; i < amount; i++)
-            {
-                MakeAnScreenshot();
-
-                Main
-                    .Wait(interval);
-            }
-        }
         
         internal void MakeAnScreenshot()
         {
@@ -106,11 +95,11 @@ namespace Good_screenshot.features.screenshot
                 LoadingPrompt
                     .Show($"Save: {currentScreenshot}");
 
-                screenshot
-                    .Save($"{path}{currentScreenshot}.png");
-
                 Main
                     .Wait(5000);
+                
+                screenshot
+                    .Save($"{path}{currentScreenshot}.png");
 
                 LoadingPrompt
                     .Hide();

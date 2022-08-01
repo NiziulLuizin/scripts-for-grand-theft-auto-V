@@ -112,15 +112,15 @@ namespace Good_screenshot.settings
                                     .Parse(screenCenterPosition),
                                y: 0);
         }
-        internal PointF ReturnTheCustomPositionOfCenterOfScreen()
+        internal Point ReturnTheCustomPositionOfCenterOfScreen()
         {
             var positionOfCenterOfScreen 
                 = ReturnThePositionOfCenterOfScreen();
 
             return _
-                   = new PointF(x: positionOfCenterOfScreen
+                   = new Point(x: positionOfCenterOfScreen
                                                          .X,
-                                y: 680f);
+                               y: 50);
         }
         
         internal Size ReturnTheSizeOfTheDefaultLayoutImage()
@@ -146,9 +146,9 @@ namespace Good_screenshot.settings
 
             return _
                    = new Size(width: sizeOfDefaultLayoutImage
-                                                        .Width / 3,
+                                                        .Width / 2,
                               height: sizeOfDefaultLayoutImage
-                                                        .Height / 3);
+                                                        .Height / 2);
             
         }
         
