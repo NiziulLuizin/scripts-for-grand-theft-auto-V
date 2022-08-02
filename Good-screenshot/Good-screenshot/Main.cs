@@ -7,7 +7,7 @@ using Good_screenshot.features.screenshot;
 
 namespace Good_screenshot
 {
-    internal class Main : Script
+    internal sealed class Main : Script
     {
         public Main()
         {
